@@ -82,6 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.querySelectorAll("[data-copiar]").forEach((elemento) => {
+    elemento.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      if (!navigator.clipboard) return;
+      const original = elemento.innerHTML;
+      navigator.clipboard.writeText(elemento.dataset.copiar).then(() => {
+        elemento.textContent = "¡Número copiado!";
+        setTimeout(() => { elemento.innerHTML = original; }, 1500);
+      });
+    });
+  });
+
   const formularioContactoInicio = document.querySelector("#form-contacto-inicio");
   if (formularioContactoInicio) {
     formularioContactoInicio.addEventListener("submit", (evento) => {
