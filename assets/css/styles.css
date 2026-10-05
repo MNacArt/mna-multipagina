@@ -681,6 +681,8 @@ p { margin: 0 0 1em; }
 .boton-eliminar { background: transparent; border: 1px solid #8a1f16; color: #8a1f16; }
 
 .form-novedad { background: var(--blanco); border: 1px solid var(--borde); border-radius: 14px; padding: 26px; margin-bottom: 30px; }
+.form-estado { display: inline-block; margin-left: 12px; font-size: .85rem; color: #445069; }
+.mensaje-envio--error { background: rgba(180,50,50,.08); color: #8a1f16; }
 .lista-novedades-admin { display: flex; flex-direction: column; gap: 12px; }
 .novedad-admin-item {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;

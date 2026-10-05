@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es-UY">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración — Movimiento Nacional Artiguista</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="encabezado">
+  <div class="contenedor encabezado__barra">
+    <a href="index.html" class="marca">
+      <img src="assets/img/logo-sin-fondo.png" alt="Escudo del Movimiento Nacional Artiguista">
+      <span class="marca__texto">
+        <strong>Movimiento Nacional</strong>
+        <span>ARTIGUISTA</span>
+      </span>
+    </a>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <strong style="color:var(--azul);">Panel de administración</strong>
+      <button type="button" id="boton-salir" class="boton boton-secundario" style="display:none;">Cerrar sesión</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="pagina-hero">
+    <div class="contenedor">
+      <p class="eyebrow">Comunidad</p>
+      <h1>Panel de administración</h1>
+      <p class="pagina-hero__lead">Cargá artículos de Doctrina y Actualidad, Noticias y documentos oficiales. Se publican al instante en el sitio.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="vista-login">
+    <div class="contenedor" style="max-width:420px;">
+      <div class="tarjeta-auth">
+        <form id="form-login-admin">
+          <div class="campo">
+            <label for="admin-email">Email</label>
+            <input type="email" id="admin-email" required>
+          </div>
+          <div class="campo">
+            <label for="admin-clave">Contraseña</label>
+            <input type="password" id="admin-clave" required>
+          </div>
+          <button type="submit" class="boton boton-primario" style="width:100%;">Ingresar</button>
+          <div class="mensaje-envio mensaje-envio--error" id="login-error">Email o clave incorrectos.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" id="vista-panel" style="display:none;">
+    <div class="contenedor">
+      <div class="admin-subnav">
+        <button type="button" class="activa" data-panel="panel-doctrina">Doctrina y Actualidad</button>
+        <button type="button" data-panel="panel-noticias">Noticias</button>
+        <button type="button" data-panel="panel-documentos">Documentos oficiales</button>
+      </div>
+
+      <div class="admin-panel activo" id="panel-doctrina">
+        <form class="form-novedad" data-form-articulo="doctrina">
+          <h3>Nuevo artículo — Doctrina y Actualidad</h3>
+          <div class="campo">
+            <label>Título</label>
+            <input type="text" name="titulo" required>
+          </div>
+          <div class="campo">
+            <label>Texto</label>
+            <textarea name="texto" rows="4"></textarea>
+          </div>
+          <div class="campo-fila">
+            <div class="campo">
+              <label>Imagen (afiche / publicidad)</label>
+              <input type="file" name="imagen" accept="image/*">
+            </div>
+            <div class="campo">
+              <label>Link de YouTube (para incrustar)</label>
+              <input type="text" name="video_youtube" placeholder="https://youtube.com/watch?v=...">
+            </div>
+          </div>
+          <div class="campo-fila">
+            <div class="campo">
+              <label>Video (archivo descargable)</label>
+              <input type="file" name="video_archivo" accept="video/*">
+            </div>
+            <div class="campo">
+              <label>PDF</label>
+              <input type="file" name="pdf" accept="application/pdf">
+            </div>
+          </div>
+          <button type="submit" class="boton boton-primario">Publicar</button>
+          <span class="form-estado"></span>
+        </form>
+        <div class="lista-novedades-admin" id="lista-admin-doctrina"></div>
+      </div>
+
+      <div class="admin-panel" id="panel-noticias">
+        <form class="form-novedad" data-form-articulo="noticias">
+          <h3>Nueva novedad — Noticias</h3>
+          <div class="campo">
+            <label>Título</label>
+            <input type="text" name="titulo" required>
+          </div>
+          <div class="campo">
+            <label>Texto</label>
+            <textarea name="texto" rows="4"></textarea>
+          </div>
+          <div class="campo-fila">
+            <div class="campo">
+              <label>Imagen</label>
+              <input type="file" name="imagen" accept="image/*">
+            </div>
+            <div class="campo">
+              <label>Link de YouTube (para incrustar)</label>
+              <input type="text" name="video_youtube" placeholder="https://youtube.com/watch?v=...">
+            </div>
+          </div>
+          <div class="campo-fila">
+            <div class="campo">
+              <label>Video (archivo descargable)</label>
+              <input type="file" name="video_archivo" accept="video/*">
+            </div>
+            <div class="campo">
+              <label>PDF</label>
+              <input type="file" name="pdf" accept="application/pdf">
+            </div>
+          </div>
+          <button type="submit" class="boton boton-primario">Publicar</button>
+          <span class="form-estado"></span>
+        </form>
+        <div class="lista-novedades-admin" id="lista-admin-noticias"></div>
+      </div>
+
+      <div class="admin-panel" id="panel-documentos">
+        <form class="form-novedad" id="form-documento">
+          <h3>Nuevo documento oficial</h3>
+          <div class="campo">
+            <label>Título</label>
+            <input type="text" name="titulo" required>
+          </div>
+          <div class="campo">
+            <label>Descripción</label>
+            <textarea name="descripcion" rows="3"></textarea>
+          </div>
+          <div class="campo">
+            <label>Archivo (PDF)</label>
+            <input type="file" name="archivo" accept="application/pdf" required>
+          </div>
+          <button type="submit" class="boton boton-primario">Publicar</button>
+          <span class="form-estado"></span>
+        </form>
+        <div class="lista-novedades-admin" id="lista-admin-documentos"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p class="pie__lema">Por la Patria, la Justicia y la Soberanía Nacional</p>
+    <div class="pie__inferior">
+      <span>© 2026 Movimiento Nacional Artiguista.</span>
+      <span>Uruguay 🇺🇾</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
