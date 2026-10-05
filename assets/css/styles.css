@@ -271,6 +271,11 @@ p { margin: 0 0 1em; }
   max-width: none;
 }
 .hero__firma { display: block; width: min(70%, 260px); height: auto; margin: 10px auto 28px; transform: translateX(-18px); }
+/* Escritura a mano de la frase (assets/js/escritura.js): mientras está pendiente, frase y firma
+   quedan ocultas; cada palabra se destapa con un barrido de izquierda a derecha. */
+.escritura-pendiente .hero__lead { visibility: hidden; }
+.escritura-pendiente .hero__firma { clip-path: inset(0 100% 0 0); }
+.esc-palabra { display: inline-block; clip-path: inset(-25% 100% -25% -10%); }
 .hero__logo { display: flex; align-items: center; justify-content: flex-end; }
 .hero__logo img { width: min(100%, 380px); }
 .hero--video .eyebrow { color: #fff; }

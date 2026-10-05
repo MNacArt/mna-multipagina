@@ -101,7 +101,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function iniciar() {
-    await aplicarContenidoGuardado();
+    try {
+      await aplicarContenidoGuardado();
+    } finally {
+      // Avisa a otros scripts (por ejemplo, la escritura a mano de la frase) que el texto ya es el definitivo.
+      document.dispatchEvent(new Event("contenido-aplicado"));
+    }
     if (!MNA_SUPABASE) return;
 
     const { data } = await MNA_SUPABASE.auth.getSession();
