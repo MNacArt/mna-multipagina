@@ -48,19 +48,70 @@ document.addEventListener("DOMContentLoaded", () => {
     gruposAnimados.forEach((grupo) => grupo.classList.add("en-vista"));
   }
 
-  const formulario = document.querySelector("#form-participa");
-  if (formulario) {
-    formulario.addEventListener("submit", (evento) => {
+  // Formularios de contacto: se envían por correo con FormSubmit (gratis, sin cuenta) a
+  // mna1811.uy@gmail.com. Solo se muestra el "¡Gracias!" si el envío salió bien.
+  const CORREO_DESTINO = "mna1811.uy@gmail.com";
+  const ERROR_ENVIO = `No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos a ${CORREO_DESTINO}.`;
+
+  const conectarFormulario = (idFormulario, idMensaje, prefijo, origen) => {
+    const formulario = document.querySelector(idFormulario);
+    const mensaje = document.querySelector(idMensaje);
+    if (!formulario) return;
+    const boton = formulario.querySelector('button[type="submit"]');
+    const textoGracias = mensaje ? mensaje.textContent : "";
+    const textoBoton = boton ? boton.textContent : "";
+
+    const avisar = (texto, error) => {
+      if (!mensaje) return;
+      mensaje.textContent = texto;
+      mensaje.classList.toggle("mensaje-envio--error", !!error);
+      mensaje.classList.add("visible");
+      mensaje.setAttribute("tabindex", "-1");
+      mensaje.focus();
+    };
+
+    formulario.addEventListener("submit", async (evento) => {
       evento.preventDefault();
-      const mensaje = document.querySelector("#mensaje-envio");
-      formulario.reset();
-      if (mensaje) {
-        mensaje.classList.add("visible");
-        mensaje.setAttribute("tabindex", "-1");
-        mensaje.focus();
+      if (boton && boton.disabled) return;
+
+      // Casilla escondida contra el spam: una persona nunca la llena.
+      const trampa = formulario.querySelector('input[name="_honey"]');
+      if (trampa && trampa.value) {
+        formulario.reset();
+        avisar(textoGracias, false);
+        return;
+      }
+
+      const valor = (campo) => (document.querySelector(`#${prefijo}-${campo}`) || {}).value || "";
+      if (boton) { boton.disabled = true; boton.textContent = "Enviando…"; }
+      try {
+        const respuesta = await fetch(`https://formsubmit.co/ajax/${CORREO_DESTINO}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            nombre: valor("nombre"),
+            email: valor("email"),
+            ciudad: valor("ciudad"),
+            mensaje: valor("mensaje"),
+            _subject: `Nuevo mensaje desde la web del MNA (${origen})`,
+            _template: "table",
+            _captcha: "false"
+          })
+        });
+        const datos = await respuesta.json().catch(() => ({}));
+        if (!respuesta.ok || String(datos.success) !== "true") throw new Error(datos.message || "envio");
+        formulario.reset();
+        avisar(textoGracias, false);
+      } catch (e) {
+        avisar(ERROR_ENVIO, true);
+      } finally {
+        if (boton) { boton.disabled = false; boton.textContent = textoBoton; }
       }
     });
-  }
+  };
+
+  conectarFormulario("#form-participa", "#mensaje-envio", "participa", "Participa");
+  conectarFormulario("#form-contacto-inicio", "#inicio-mensaje-envio", "inicio", "Inicio");
 
   // Videos de fondo: silenciosos y livianos (menos de 1 MB), así que se reproducen siempre.
   // Si el navegador bloquea el autoplay (por ejemplo, ahorro de batería en el móvil),
@@ -157,17 +208,4 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(() => {});
   });
 
-  const formularioContactoInicio = document.querySelector("#form-contacto-inicio");
-  if (formularioContactoInicio) {
-    formularioContactoInicio.addEventListener("submit", (evento) => {
-      evento.preventDefault();
-      const mensaje = document.querySelector("#inicio-mensaje-envio");
-      formularioContactoInicio.reset();
-      if (mensaje) {
-        mensaje.classList.add("visible");
-        mensaje.setAttribute("tabindex", "-1");
-        mensaje.focus();
-      }
-    });
-  }
 });
