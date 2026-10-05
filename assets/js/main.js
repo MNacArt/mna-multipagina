@@ -66,10 +66,16 @@ document.addEventListener("DOMContentLoaded", () => {
     enlace.addEventListener("click", (evento) => {
       if (!navigator.clipboard) return;
       evento.preventDefault();
-      const original = enlace.textContent;
+      const original = enlace.innerHTML;
+      const esIcono = !!enlace.querySelector("svg");
       navigator.clipboard.writeText("mna1811.uy@gmail.com").then(() => {
-        enlace.textContent = "¡Copiado!";
-        setTimeout(() => { enlace.textContent = original; }, 1500);
+        if (esIcono) {
+          enlace.classList.add("copiado");
+          setTimeout(() => enlace.classList.remove("copiado"), 1500);
+        } else {
+          enlace.textContent = "¡Copiado!";
+          setTimeout(() => { enlace.innerHTML = original; }, 1500);
+        }
       }).catch(() => {
         window.location.href = "mailto:mna1811.uy@gmail.com";
       });

@@ -484,7 +484,22 @@ p { margin: 0 0 1em; }
 }
 .pie__redes a:hover { background: var(--rojo); border-color: var(--rojo); }
 .pie__icono { width: 18px; height: 18px; display: block; }
-.pie__subtitulo { margin-top: 26px; }
+.pie__subtitulo { margin-top: 44px; }
+.pie__redes a { position: relative; }
+.pie__redes a.copiado::after {
+  content: "¡Copiado!";
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blanco);
+  color: var(--azul);
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
 .pie__inferior {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 22px; font-size: .82rem; color: rgba(255,255,255,.6);
