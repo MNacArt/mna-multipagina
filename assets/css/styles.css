@@ -73,6 +73,7 @@ p { margin: 0 0 1em; }
   background: var(--rojo);
   display: inline-block;
 }
+.eyebrow:empty { display: none; }
 
 /* ---------- Botones ---------- */
 .boton {
