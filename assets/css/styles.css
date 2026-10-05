@@ -299,6 +299,20 @@ p { margin: 0 0 1em; }
   transition: transform 1.1s cubic-bezier(.22,.75,.25,1);
 }
 .seccion--accion.en-vista .accion__figura { transform: translateX(0); }
+/* En el móvil la sección es larga (tarjetas apiladas): se usa Artigas de cuerpo entero
+   a todo el alto, para que la figura acompañe desde el título hasta la tarjeta de Noticias. */
+.accion__figura--movil { display: none; }
+@media (max-width: 720px) {
+  .accion__figura--escritorio { display: none; }
+  .accion__figura--movil {
+    display: block;
+    width: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 0;
+    opacity: .4;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .accion__figura { transition: none; }
 }
