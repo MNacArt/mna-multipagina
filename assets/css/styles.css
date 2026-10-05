@@ -483,6 +483,8 @@ p { margin: 0 0 1em; }
   display: flex; align-items: center; justify-content: center;
 }
 .pie__redes a:hover { background: var(--rojo); border-color: var(--rojo); }
+.pie__icono { width: 18px; height: 18px; display: block; }
+.pie__subtitulo { margin-top: 26px; }
 .pie__inferior {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 22px; font-size: .82rem; color: rgba(255,255,255,.6);
