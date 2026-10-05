@@ -62,6 +62,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const ahorroDeDatos = (navigator.connection && navigator.connection.saveData) ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("video.seccion__video-fondo").forEach((video) => {
+    if (ahorroDeDatos) {
+      video.removeAttribute("autoplay");
+      video.pause();
+      return;
+    }
+    const fuente = video.querySelector("source[data-src]");
+    if (!fuente) return;
+    const cargar = () => {
+      fuente.src = fuente.dataset.src;
+      video.load();
+      video.play().catch(() => {});
+    };
+    if ("IntersectionObserver" in window) {
+      const observadorVideo = new IntersectionObserver((entradas, obs) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) {
+            cargar();
+            obs.unobserve(video);
+          }
+        });
+      }, { rootMargin: "300px" });
+      observadorVideo.observe(video);
+    } else {
+      cargar();
+    }
+  });
+
   document.querySelectorAll('a[href="mailto:mna1811.uy@gmail.com"]').forEach((enlace) => {
     enlace.addEventListener("click", (evento) => {
       if (!navigator.clipboard) return;
