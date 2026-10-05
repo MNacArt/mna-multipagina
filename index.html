@@ -107,32 +107,34 @@
   </section>
 
   <section class="seccion seccion--alterna">
-    <div class="contenedor" style="max-width:640px;">
-      <div class="seccion__cabecera" style="text-align:center;margin-left:auto;margin-right:auto;">
-        <p class="eyebrow">Contacto</p>
-        <h2>Dejanos tus datos</h2>
-        <p>Contanos cómo contactarte y te respondemos a la brevedad.</p>
+    <div class="contenedor">
+      <div class="seccion-dividida seccion-dividida--participa">
+        <div class="seccion__cabecera">
+          <p class="eyebrow">Contacto</p>
+          <h2>Dejanos tus datos</h2>
+          <p>Contanos cómo contactarte y te respondemos a la brevedad.</p>
+        </div>
+        <form class="formulario" id="form-contacto-inicio">
+          <div class="campo">
+            <label for="inicio-nombre">Nombre y apellido</label>
+            <input type="text" id="inicio-nombre" required>
+          </div>
+          <div class="campo">
+            <label for="inicio-email">Correo electrónico</label>
+            <input type="email" id="inicio-email" required>
+          </div>
+          <div class="campo">
+            <label for="inicio-ciudad">Ciudad</label>
+            <input type="text" id="inicio-ciudad">
+          </div>
+          <div class="campo">
+            <label for="inicio-mensaje">Mensaje</label>
+            <textarea id="inicio-mensaje" rows="4" placeholder="Contanos cómo querés participar"></textarea>
+          </div>
+          <button type="submit" class="boton boton-primario" style="width:100%;">Enviar</button>
+          <div class="mensaje-envio" id="inicio-mensaje-envio">¡Gracias! Recibimos tu mensaje y te vamos a contactar a la brevedad.</div>
+        </form>
       </div>
-      <form class="formulario" id="form-contacto-inicio">
-        <div class="campo">
-          <label for="inicio-nombre">Nombre y apellido</label>
-          <input type="text" id="inicio-nombre" required>
-        </div>
-        <div class="campo">
-          <label for="inicio-email">Correo electrónico</label>
-          <input type="email" id="inicio-email" required>
-        </div>
-        <div class="campo">
-          <label for="inicio-ciudad">Ciudad</label>
-          <input type="text" id="inicio-ciudad">
-        </div>
-        <div class="campo">
-          <label for="inicio-mensaje">Mensaje</label>
-          <textarea id="inicio-mensaje" rows="4" placeholder="Contanos cómo querés participar"></textarea>
-        </div>
-        <button type="submit" class="boton boton-primario" style="width:100%;">Enviar</button>
-        <div class="mensaje-envio" id="inicio-mensaje-envio">¡Gracias! Recibimos tu mensaje y te vamos a contactar a la brevedad.</div>
-      </form>
     </div>
   </section>
 
