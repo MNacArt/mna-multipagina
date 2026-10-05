@@ -466,6 +466,21 @@ p { margin: 0 0 1em; }
 }
 .tarjeta--iniciativa:active .tarjeta__icono { background: var(--rojo); color: var(--blanco); }
 
+/* Tarjetas de iniciativas: cuadradas, de bordes redondeados, con el icono arriba y el título abajo. */
+.tarjeta--iniciativa {
+  aspect-ratio: 1 / 1;
+  border-radius: 26px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tarjeta--iniciativa .tarjeta__icono { width: 54px; height: 54px; margin-bottom: 0; font-size: 1.5rem; }
+.tarjeta--iniciativa h3 { font-size: 1.4rem; line-height: 1.25; margin: 0; }
+@media (max-width: 540px) {
+  .tarjeta--iniciativa { aspect-ratio: 4 / 3; padding: 26px; }
+}
+
 /* Tarjeta con video de fondo (Federalización): el video queda dentro de la tarjeta, bajo una capa oscura. */
 .tarjeta--con-video { isolation: isolate; border-color: transparent; }
 .tarjeta--con-video .seccion__video-capa { background: rgba(4, 22, 52, .62); }
