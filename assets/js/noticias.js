@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  MNA_ARTICULOS.renderDocumentos("#lista-documentos-publico");
-
   const raiz = document.querySelector("#carrusel-novedades");
   const stage = raiz ? raiz.querySelector(".depth-carousel__stage") : null;
   const puntos = raiz ? raiz.querySelector(".depth-carousel__dots") : null;
