@@ -36,17 +36,17 @@
 <main>
   <section class="pagina-hero">
     <div class="contenedor">
-      <p class="eyebrow">Actualidad</p>
-      <h1>Noticias y comunicados</h1>
-      <p class="pagina-hero__lead">Enterate de las actividades, comunicados oficiales y documentos del Movimiento Nacional Artiguista.</p>
+      <p class="eyebrow" data-contenido="noticias.hero.eyebrow" data-tipo="texto">Actualidad</p>
+      <h1 data-contenido="noticias.hero.titulo" data-tipo="texto">Noticias y comunicados</h1>
+      <p class="pagina-hero__lead" data-contenido="noticias.hero.texto" data-tipo="texto">Enterate de las actividades, comunicados oficiales y documentos del Movimiento Nacional Artiguista.</p>
     </div>
   </section>
 
   <section class="seccion">
     <div class="contenedor">
       <div class="seccion__cabecera">
-        <p class="eyebrow">Novedades</p>
-        <h2>Últimas publicaciones</h2>
+        <p class="eyebrow" data-contenido="noticias.novedades.eyebrow" data-tipo="texto">Novedades</p>
+        <h2 data-contenido="noticias.novedades.titulo" data-tipo="texto">Últimas publicaciones</h2>
       </div>
       <div class="grilla-3" id="lista-novedades-publico"></div>
     </div>
@@ -55,9 +55,9 @@
   <section class="seccion seccion--alterna">
     <div class="contenedor" style="max-width:760px;">
       <div class="seccion__cabecera">
-        <p class="eyebrow">Documentos</p>
-        <h2>Documentos oficiales</h2>
-        <p>Manifiesto, actas e informes del movimiento.</p>
+        <p class="eyebrow" data-contenido="noticias.documentos.eyebrow" data-tipo="texto">Documentos</p>
+        <h2 data-contenido="noticias.documentos.titulo" data-tipo="texto">Documentos oficiales</h2>
+        <p data-contenido="noticias.documentos.texto" data-tipo="texto">Manifiesto, actas e informes del movimiento.</p>
       </div>
       <div id="lista-documentos-publico" class="lista-documentos"></div>
     </div>
@@ -66,14 +66,14 @@
 
 <footer class="pie">
   <div class="contenedor">
-    <p class="pie__lema">Por la Patria, la Justicia y la Soberanía Nacional</p>
+    <p class="pie__lema" data-contenido="pie.lema" data-tipo="texto">Por la Patria, la Justicia y la Soberanía Nacional</p>
     <div class="pie__grid">
       <div>
         <div class="pie__marca">
           <img src="assets/img/logo-sin-fondo.png" alt="Escudo del Movimiento Nacional Artiguista">
           <strong>Movimiento Nacional Artiguista</strong>
         </div>
-        <p>Movimiento de índole nacionalista y artiguista de tercera posición en Uruguay. Soberanismo y nacionalismo integrador.</p>
+        <p data-contenido="pie.bio" data-tipo="texto">Movimiento de índole nacionalista y artiguista de tercera posición en Uruguay. Soberanismo y nacionalismo integrador.</p>
       </div>
       <div>
         <h4>Seguinos</h4>
@@ -96,5 +96,6 @@
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/articulos.js"></script>
 <script src="assets/js/noticias.js"></script>
+<script src="assets/js/contenido.js"></script>
 </body>
 </html>

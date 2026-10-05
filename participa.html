@@ -36,9 +36,9 @@
 <main>
   <section class="pagina-hero">
     <div class="contenedor">
-      <p class="eyebrow">Sumate</p>
-      <h1>Participa</h1>
-      <p class="pagina-hero__lead">La construcción de un mejor país también se hace desde la ciudadanía. Escribinos y te contactamos.</p>
+      <p class="eyebrow" data-contenido="participa.hero.eyebrow" data-tipo="texto">Sumate</p>
+      <h1 data-contenido="participa.hero.titulo" data-tipo="texto">Participa</h1>
+      <p class="pagina-hero__lead" data-contenido="participa.hero.texto" data-tipo="texto">La construcción de un mejor país también se hace desde la ciudadanía. Escribinos y te contactamos.</p>
       <a href="https://wa.me/59899781220?text=Hola%2C%20quiero%20sumarme%20al%20Movimiento%20Nacional%20Artiguista." target="_blank" rel="noopener" class="boton boton-rojo">Escribinos por WhatsApp</a>
     </div>
   </section>
@@ -71,22 +71,22 @@
           <div class="via-contacto">
             <div class="via-contacto__icono">✉</div>
             <div>
-              <h4>Correo</h4>
-              <p><a href="mailto:mna1811.uy@gmail.com">mna1811.uy@gmail.com</a></p>
+              <h4 data-contenido="participa.via1.titulo" data-tipo="texto">Correo</h4>
+              <p data-contenido="participa.via1.texto" data-tipo="texto"><a href="mailto:mna1811.uy@gmail.com">mna1811.uy@gmail.com</a></p>
             </div>
           </div>
           <div class="via-contacto">
             <div class="via-contacto__icono">WA</div>
             <div>
-              <h4>WhatsApp</h4>
-              <p><a href="https://wa.me/59899781220?text=Hola%2C%20quiero%20sumarme%20al%20Movimiento%20Nacional%20Artiguista." target="_blank" rel="noopener">+598 99 781 220</a></p>
+              <h4 data-contenido="participa.via2.titulo" data-tipo="texto">WhatsApp</h4>
+              <p data-contenido="participa.via2.texto" data-tipo="texto"><a href="https://wa.me/59899781220?text=Hola%2C%20quiero%20sumarme%20al%20Movimiento%20Nacional%20Artiguista." target="_blank" rel="noopener">+598 99 781 220</a></p>
             </div>
           </div>
           <div class="via-contacto">
             <div class="via-contacto__icono">IG</div>
             <div>
-              <h4>Instagram</h4>
-              <p><a href="https://www.instagram.com/movimiento_nacionalartiguista/" target="_blank" rel="noopener">@movimiento_nacionalartiguista</a></p>
+              <h4 data-contenido="participa.via3.titulo" data-tipo="texto">Instagram</h4>
+              <p data-contenido="participa.via3.texto" data-tipo="texto"><a href="https://www.instagram.com/movimiento_nacionalartiguista/" target="_blank" rel="noopener">@movimiento_nacionalartiguista</a></p>
             </div>
           </div>
         </div>
@@ -97,14 +97,14 @@
 
 <footer class="pie">
   <div class="contenedor">
-    <p class="pie__lema">Por la Patria, la Justicia y la Soberanía Nacional</p>
+    <p class="pie__lema" data-contenido="pie.lema" data-tipo="texto">Por la Patria, la Justicia y la Soberanía Nacional</p>
     <div class="pie__grid">
       <div>
         <div class="pie__marca">
           <img src="assets/img/logo-sin-fondo.png" alt="Escudo del Movimiento Nacional Artiguista">
           <strong>Movimiento Nacional Artiguista</strong>
         </div>
-        <p>Movimiento de índole nacionalista y artiguista de tercera posición en Uruguay. Soberanismo y nacionalismo integrador.</p>
+        <p data-contenido="pie.bio" data-tipo="texto">Movimiento de índole nacionalista y artiguista de tercera posición en Uruguay. Soberanismo y nacionalismo integrador.</p>
       </div>
       <div>
         <h4>Seguinos</h4>
@@ -123,5 +123,8 @@
 
 <script src="assets/js/backend.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/contenido.js"></script>
 </body>
 </html>

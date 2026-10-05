@@ -52,6 +52,25 @@ create policy "documentos_escritura_admin"
   using (auth.role() = 'authenticated')
   with check (auth.role() = 'authenticated');
 
+-- ---------- Tabla contenido_sitio (texto e imágenes editables de las páginas) ----------
+create table if not exists public.contenido_sitio (
+  clave text primary key,
+  tipo text not null check (tipo in ('texto', 'imagen')),
+  valor text not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.contenido_sitio enable row level security;
+
+create policy "contenido_lectura_publica"
+  on public.contenido_sitio for select
+  using (true);
+
+create policy "contenido_escritura_admin"
+  on public.contenido_sitio for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
 -- ---------- Storage: bucket "media" ----------
 -- No se puede crear el bucket por SQL con una cuenta normal; se crea a mano
 -- desde Storage → New bucket → nombre "media" → marcar "Public bucket".
