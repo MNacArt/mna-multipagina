@@ -969,6 +969,21 @@ body.modo-edicion .fm-item p:empty { display: block; min-height: 1.5em; }
 }
 .fm-invertido .fm-marquee,
 .fm-invertido .fm-marquee__inner { transform: translateY(0); }
+.fm-invertido .fm-item__cuerpo { min-height: calc(clamp(1.5rem, 3.2vw, 2.3rem) * 1.2 + 60px); }
+.fm-invertido h3 {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+body.modo-edicion .fm-invertido h3 {
+  position: static;
+  width: auto; height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
 @keyframes fm-desplazar { to { transform: translateX(-50%); } }
 body.modo-edicion .fm-marquee { display: none; }
 
