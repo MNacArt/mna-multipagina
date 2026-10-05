@@ -466,6 +466,11 @@ p { margin: 0 0 1em; }
 }
 .tarjeta--iniciativa:active .tarjeta__icono { background: var(--rojo); color: var(--blanco); }
 
+/* Tarjeta con video de fondo (Federalización): el video queda dentro de la tarjeta, bajo una capa oscura. */
+.tarjeta--con-video { isolation: isolate; border-color: transparent; }
+.tarjeta--con-video .seccion__video-capa { background: rgba(4, 22, 52, .62); }
+.tarjeta--con-video h3 { color: var(--blanco); }
+
 /* "Reducir movimiento": solo un fundido suave, sin desplazamientos. */
 @media (prefers-reduced-motion: reduce) {
   .en-vista .tarjeta--anima { animation-name: tarjeta-fundido; }
