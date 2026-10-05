@@ -40,7 +40,7 @@ const MNA_ARTICULOS = (function () {
     contenedor.innerHTML = data.map((a) => {
       const embed = idVideoEmbebible(a.video_youtube_url);
       return `
-        <article class="tarjeta tarjeta--noticia">
+        <article class="tarjeta tarjeta--noticia tarjeta--anima">
           <span class="fecha">${fechaLegible(a.created_at)}</span>
           <h3>${a.titulo}</h3>
           ${a.texto ? `<p>${a.texto}</p>` : ""}
@@ -51,6 +51,20 @@ const MNA_ARTICULOS = (function () {
         </article>
       `;
     }).join("");
+
+    // Entrada escalonada: se activa cuando la lista entra en pantalla (las tarjetas se crean
+    // después de cargar la página, por eso se observa acá y no en main.js).
+    if ("IntersectionObserver" in window) {
+      const observador = new IntersectionObserver((entradas, obs) => {
+        if (entradas.some((e) => e.isIntersecting)) {
+          contenedor.classList.add("en-vista");
+          obs.disconnect();
+        }
+      }, { threshold: 0.1 });
+      observador.observe(contenedor);
+    } else {
+      contenedor.classList.add("en-vista");
+    }
   }
 
   async function renderDocumentos(selector) {
