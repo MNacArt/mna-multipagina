@@ -43,4 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  const formularioContactoInicio = document.querySelector("#form-contacto-inicio");
+  if (formularioContactoInicio) {
+    formularioContactoInicio.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      const mensaje = document.querySelector("#inicio-mensaje-envio");
+      formularioContactoInicio.reset();
+      if (mensaje) {
+        mensaje.classList.add("visible");
+        mensaje.setAttribute("tabindex", "-1");
+        mensaje.focus();
+      }
+    });
+  }
 });
