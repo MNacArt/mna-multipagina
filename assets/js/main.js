@@ -62,6 +62,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  document.querySelectorAll('a[href="mailto:mna1811.uy@gmail.com"]').forEach((enlace) => {
+    enlace.addEventListener("click", (evento) => {
+      if (!navigator.clipboard) return;
+      evento.preventDefault();
+      const original = enlace.textContent;
+      navigator.clipboard.writeText("mna1811.uy@gmail.com").then(() => {
+        enlace.textContent = "¡Copiado!";
+        setTimeout(() => { enlace.textContent = original; }, 1500);
+      }).catch(() => {
+        window.location.href = "mailto:mna1811.uy@gmail.com";
+      });
+    });
+  });
+
   const formularioContactoInicio = document.querySelector("#form-contacto-inicio");
   if (formularioContactoInicio) {
     formularioContactoInicio.addEventListener("submit", (evento) => {
