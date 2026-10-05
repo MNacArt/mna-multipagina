@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
     marquee.className = "fm-marquee";
     marquee.setAttribute("aria-hidden", "true");
     marquee.innerHTML = '<div class="fm-marquee__inner"><div class="fm-marquee__track"></div></div>';
+    if (item.dataset.video) {
+      marquee.insertAdjacentHTML(
+        "afterbegin",
+        `<video class="fm-marquee__video" autoplay muted loop playsinline><source src="${item.dataset.video}" type="video/mp4"></video><div class="fm-marquee__capa"></div>`
+      );
+    }
     item.classList.add("fm-invertido");
     item.appendChild(marquee);
 
