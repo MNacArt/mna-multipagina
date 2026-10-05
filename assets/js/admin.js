@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     vistaLogin.style.display = "none";
     vistaPanel.style.display = "block";
     botonSalir.style.display = "inline-block";
-    await Promise.all([cargarArticulos("doctrina"), cargarArticulos("noticias"), cargarDocumentos()]);
+    await Promise.all([cargarArticulos("doctrina"), cargarArticulos("noticias"), cargarDocumentos(), cargarEnsayos(), cargarVideo()]);
   }
 
   function mostrarLogin() {
@@ -198,6 +198,128 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = boton.dataset.eliminarDocumento;
     const { error } = await MNA_SUPABASE.from("documentos").delete().eq("id", id);
     if (!error) await cargarDocumentos();
+  });
+
+  // ---------- Ensayos de interés (Noticias) ----------
+  const escapar = (texto) => String(texto == null ? "" : texto).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+
+  const formEnsayo = document.querySelector("#form-ensayo");
+  formEnsayo.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    const estado = formEnsayo.querySelector(".form-estado");
+    estado.textContent = "Publicando...";
+    try {
+      const titulo = formEnsayo.querySelector("[name=titulo]").value.trim();
+      const autor = formEnsayo.querySelector("[name=autor]").value.trim();
+      const fecha = formEnsayo.querySelector("[name=fecha]").value;
+      const url = formEnsayo.querySelector("[name=url]").value.trim();
+      if (!/^https?:\/\//i.test(url)) throw new Error("El enlace debe empezar con http:// o https://");
+      const { error } = await MNA_SUPABASE.from("ensayos").insert({
+        titulo,
+        autor: autor || null,
+        fecha: fecha || null,
+        url,
+      });
+      if (error) throw error;
+      formEnsayo.reset();
+      estado.textContent = "¡Publicado!";
+      await cargarEnsayos();
+    } catch (e) {
+      estado.textContent = "Error al publicar: " + e.message;
+    }
+  });
+
+  async function cargarEnsayos() {
+    const lista = document.querySelector("#lista-admin-ensayos");
+    if (!lista) return;
+    const { data, error } = await MNA_SUPABASE
+      .from("ensayos")
+      .select("*")
+      .order("fecha", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false });
+    if (error) {
+      lista.innerHTML = `<p class="vacio">Falta crear la tabla de ensayos en Supabase (ejecutar supabase/ensayos-y-video.sql).</p>`;
+      return;
+    }
+    if (!data || !data.length) {
+      lista.innerHTML = `<p class="vacio">Todavía no hay ensayos.</p>`;
+      return;
+    }
+    lista.innerHTML = data.map((e) => `
+      <div class="novedad-admin-item" data-id="${e.id}">
+        <div>
+          <h4>${escapar(e.titulo)}</h4>
+          <p>${escapar([e.autor, e.fecha ? new Date(e.fecha + "T00:00:00Z").toLocaleDateString("es-UY", { timeZone: "UTC" }) : ""].filter(Boolean).join(" · "))}</p>
+        </div>
+        <button type="button" class="boton-chico boton-eliminar" data-eliminar-ensayo="${e.id}">Eliminar</button>
+      </div>
+    `).join("");
+  }
+
+  document.addEventListener("click", async (evento) => {
+    const boton = evento.target.closest("[data-eliminar-ensayo]");
+    if (!boton) return;
+    if (!confirm("¿Eliminar este ensayo?")) return;
+    const { error } = await MNA_SUPABASE.from("ensayos").delete().eq("id", boton.dataset.eliminarEnsayo);
+    if (!error) await cargarEnsayos();
+  });
+
+  // ---------- Video de interés (Noticias) ----------
+  const CLAVE_VIDEO = "noticias.video.url";
+  const VIDEO_POR_DEFECTO = "https://www.youtube.com/live/UK1BsPkRGag";
+  const formVideo = document.querySelector("#form-video");
+  const campoVideo = formVideo.querySelector("[name=url]");
+  const estadoVideo = formVideo.querySelector(".form-estado");
+
+  const hayVideoDeYoutube = (url) =>
+    /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|live\/|shorts\/|v\/))[A-Za-z0-9_-]{11}/.test(url);
+
+  async function cargarVideo() {
+    const { data, error } = await MNA_SUPABASE
+      .from("contenido_sitio")
+      .select("valor")
+      .eq("clave", CLAVE_VIDEO)
+      .maybeSingle();
+    if (error) return;
+    campoVideo.value = data ? data.valor : VIDEO_POR_DEFECTO;
+  }
+
+  async function guardarVideo(valor) {
+    const { error } = await MNA_SUPABASE.from("contenido_sitio").upsert(
+      { clave: CLAVE_VIDEO, tipo: "texto", valor, updated_at: new Date().toISOString() },
+      { onConflict: "clave" }
+    );
+    if (error) throw error;
+  }
+
+  formVideo.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    const url = campoVideo.value.trim();
+    if (!hayVideoDeYoutube(url)) {
+      estadoVideo.textContent = "No reconozco ese enlace de YouTube. Copia el enlace completo desde YouTube.";
+      return;
+    }
+    estadoVideo.textContent = "Guardando...";
+    try {
+      await guardarVideo(url);
+      estadoVideo.textContent = "¡Guardado! Ya se ve en Noticias.";
+    } catch (e) {
+      estadoVideo.textContent = "Error al guardar: " + e.message;
+    }
+  });
+
+  document.querySelector("#quitar-video").addEventListener("click", async () => {
+    if (!confirm("¿Quitar el video de la página de Noticias?")) return;
+    estadoVideo.textContent = "Guardando...";
+    try {
+      await guardarVideo("");
+      campoVideo.value = "";
+      estadoVideo.textContent = "Video quitado. La sección ya no aparece en Noticias.";
+    } catch (e) {
+      estadoVideo.textContent = "Error al guardar: " + e.message;
+    }
   });
 
   verificarSesion();

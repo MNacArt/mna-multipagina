@@ -3,7 +3,7 @@
 const MNA_ARTICULOS = (function () {
   function idVideoEmbebible(url) {
     if (!url) return null;
-    const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{6,})/);
+    const m = url.match(/(?:youtu\.be\/|v=|embed\/|live\/|shorts\/)([A-Za-z0-9_-]{6,})/);
     return m ? `https://www.youtube.com/embed/${m[1]}` : null;
   }
 

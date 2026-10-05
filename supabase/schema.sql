@@ -96,3 +96,28 @@ create policy "media_actualizacion_admin"
 create policy "media_borrado_admin"
   on storage.objects for delete
   using (bucket_id = 'media' and auth.role() = 'authenticated');
+
+
+-- ---------- Tabla ensayos (Ensayos de interés, sección Noticias) ----------
+-- Para una base ya creada, usar supabase/ensayos-y-video.sql (incluye los ensayos iniciales).
+-- El video de interés se guarda en contenido_sitio con la clave "noticias.video.url".
+create table if not exists public.ensayos (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null,
+  autor text,
+  fecha date,
+  url text not null,
+  publicado boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+alter table public.ensayos enable row level security;
+
+create policy "ensayos_lectura_publica"
+  on public.ensayos for select
+  using (publicado = true);
+
+create policy "ensayos_escritura_admin"
+  on public.ensayos for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
