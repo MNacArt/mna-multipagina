@@ -313,8 +313,18 @@ p { margin: 0 0 1em; }
     opacity: .4;
   }
 }
+/* "Reducir movimiento": la figura no se desliza, aparece con un fundido suave. */
 @media (prefers-reduced-motion: reduce) {
-  .accion__figura { transition: none; }
+  .accion__figura { transform: none; opacity: 0; transition: opacity .8s ease; }
+  .seccion--accion.en-vista .accion__figura--escritorio { opacity: 1; }
+  .seccion--accion.en-vista .accion__figura--movil { opacity: .4; }
+}
+
+/* Pantallas táctiles: sin "levantar" al pasar (el hover queda pegado); al tocar, se hunden un poco. */
+@media (hover: none) {
+  .tarjeta:hover { transform: none; box-shadow: none; }
+  .boton:hover { transform: none; }
+  .boton:active, .tarjeta:active, .tarjeta__enlace:active { transform: scale(.97); }
 }
 
 .pagina-hero {
@@ -359,6 +369,7 @@ p { margin: 0 0 1em; }
   margin-bottom: 16px;
   font-size: 1.3rem;
 }
+.tarjeta__icono img { width: 26px; height: 26px; }
 .tarjeta h3 { font-size: 1.15rem; margin-bottom: 8px; }
 .tarjeta p { color: #445069; font-size: .96rem; margin-bottom: 0; }
 .tarjeta__enlace {
@@ -407,8 +418,9 @@ p { margin: 0 0 1em; }
 .grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(3) { transition-delay: 140ms; }
 .grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(4) { transition-delay: 210ms; }
 .grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(5) { transition-delay: 280ms; }
+/* "Reducir movimiento": solo un fundido suave, sin desplazamientos. */
 @media (prefers-reduced-motion: reduce) {
-  .tarjeta--iniciativa { transition: none; opacity: 1; transform: none; }
+  .tarjeta--iniciativa { transform: none; }
 }
 
 /* ---------- Formulario Participá ---------- */
@@ -950,11 +962,11 @@ body.modo-edicion [data-contenido][data-tipo="imagen"]:hover { outline: 2px dash
   padding: 30px 8px;
 }
 .fm-item__icono {
-  color: var(--rojo);
-  font-size: 1.1rem;
-  line-height: 2.2;
   flex-shrink: 0;
+  line-height: 0;
+  padding-top: 8px;
 }
+.fm-item__icono img { width: 22px; height: 22px; }
 .fm-item h3 {
   font-size: clamp(1.5rem, 3.2vw, 2.3rem);
   line-height: 1.2;
@@ -1016,6 +1028,10 @@ body.modo-edicion .fm-invertido h3 {
   clip: auto;
   white-space: normal;
 }
+/* Modo táctil (sin hover): la franja se destapa al entrar la fila en pantalla o al tocarla. */
+.fm-tactil { cursor: pointer; }
+.fm-tactil.fm-revelado .fm-marquee { transform: translateY(-101%); }
+.fm-tactil.fm-revelado .fm-marquee__inner { transform: translateY(101%); }
 @keyframes fm-desplazar { to { transform: translateX(-50%); } }
 body.modo-edicion .fm-marquee { display: none; }
 

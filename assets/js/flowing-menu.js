@@ -1,11 +1,14 @@
 // Flowing Menu invertido (vanilla): en reposo cada fila muestra una franja azul con el título
-// desplazándose hacia la izquierda; al pasar el mouse la franja sale por el borde más cercano
-// al cursor y queda el texto plano. Solo en dispositivos con hover y sin movimiento reducido.
+// desplazándose hacia la izquierda.
+//  - Con mouse: al pasar el cursor la franja sale por el borde más cercano y queda el texto plano.
+//  - En pantallas táctiles (sin hover): la franja sale sola cuando la fila entra en pantalla al
+//    hacer scroll (una tras otra), y un toque la quita o la vuelve a poner.
+//  - Con "reducir movimiento" no se anima nada: se ve la lista simple.
 document.addEventListener("DOMContentLoaded", () => {
   const items = document.querySelectorAll(".fm-item");
   if (!items.length) return;
-  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const conMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   items.forEach((item) => {
     const titulo = item.querySelector("h3");
@@ -26,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     rellenarTrack();
     new MutationObserver(rellenarTrack).observe(titulo, { childList: true, characterData: true, subtree: true });
 
+    if (!conMouse) return;
+
     function borde(evento) {
       const caja = item.getBoundingClientRect();
       return evento.clientY - caja.top < caja.height / 2 ? "top" : "bottom";
@@ -44,4 +49,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     item.addEventListener("mouseleave", () => mover("0", "0"));
   });
+
+  if (conMouse) return;
+
+  // Modo táctil: solo se destapan las filas que tienen texto debajo del título.
+  const tieneTexto = (item) => {
+    const detalle = item.querySelector("p, ul");
+    return !!detalle && detalle.textContent.trim() !== "";
+  };
+
+  items.forEach((item) => {
+    item.classList.add("fm-tactil");
+    item.addEventListener("click", () => {
+      if (document.body.classList.contains("modo-edicion")) return;
+      if (tieneTexto(item)) item.classList.toggle("fm-revelado");
+    });
+  });
+
+  if (!("IntersectionObserver" in window)) return;
+  const observador = new IntersectionObserver((entradas, obs) => {
+    let orden = 0;
+    entradas.forEach((entrada) => {
+      if (!entrada.isIntersecting) return;
+      const item = entrada.target;
+      obs.unobserve(item);
+      setTimeout(() => {
+        if (tieneTexto(item)) item.classList.add("fm-revelado");
+      }, orden * 140);
+      orden += 1;
+    });
+  }, { threshold: 0.7 });
+  items.forEach((item) => observador.observe(item));
 });
