@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function rellenarTrack() {
       const texto = titulo.textContent.trim();
-      track.innerHTML = `<span>${texto}</span><span class="fm-marquee__sep">✦</span>`.repeat(12);
+      track.innerHTML = `<span>${texto}</span><img class="fm-marquee__estrella" src="assets/img/estrella-roja.png" alt="">`.repeat(12);
     }
     rellenarTrack();
     new MutationObserver(rellenarTrack).observe(titulo, { childList: true, characterData: true, subtree: true });
