@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     .select("*")
     .eq("categoria", "noticias")
     .eq("publicado", true)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(3);
 
   if (error || !data || !data.length) {
     mostrarVacio();
