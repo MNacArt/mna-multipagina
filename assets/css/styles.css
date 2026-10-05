@@ -481,6 +481,27 @@ p { margin: 0 0 1em; }
   .tarjeta--iniciativa { aspect-ratio: 4 / 3; padding: 26px; }
 }
 
+/* Tarjeta de descarga del PDF de propuestas: mismo tamaño, en azul sólido para destacar como llamada a la acción. */
+.tarjeta--descarga { background: var(--azul); border-color: transparent; color: var(--blanco); text-decoration: none; }
+.tarjeta--descarga h3 { color: var(--blanco); }
+.tarjeta--descarga .tarjeta__icono { background: rgba(255, 255, 255, .16); color: var(--blanco); }
+.tarjeta__etiqueta {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta--descarga:hover .tarjeta__icono span { transform: translateY(4px); }
+}
+/* Si todavía no está cargado el PDF, la tarjeta avisa "Próximamente" en vez de llevar a un error. */
+.tarjeta--pronto { cursor: default; }
+.tarjeta--pronto .tarjeta__etiqueta { background: var(--rojo); }
+
 /* Tarjeta con video de fondo (Federalización): el video queda dentro de la tarjeta, bajo una capa oscura. */
 .tarjeta--con-video { isolation: isolate; border-color: transparent; }
 .tarjeta--con-video .seccion__video-capa { background: rgba(4, 22, 52, .62); }

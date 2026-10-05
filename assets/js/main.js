@@ -139,6 +139,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Enlaces a PDF que todavía pueden no estar subidos: si el archivo no existe se muestra
+  // "Próximamente" en lugar de llevar a un error 404.
+  document.querySelectorAll("a[data-pdf]").forEach((enlace) => {
+    const etiqueta = enlace.querySelector(".tarjeta__etiqueta");
+    enlace.addEventListener("click", (evento) => {
+      if (document.body.classList.contains("modo-edicion") || enlace.classList.contains("tarjeta--pronto")) {
+        evento.preventDefault();
+      }
+    });
+    fetch(enlace.getAttribute("href"), { method: "HEAD" })
+      .then((respuesta) => {
+        if (respuesta.ok) return;
+        enlace.classList.add("tarjeta--pronto");
+        if (etiqueta) etiqueta.textContent = "Próximamente";
+      })
+      .catch(() => {});
+  });
+
   const formularioContactoInicio = document.querySelector("#form-contacto-inicio");
   if (formularioContactoInicio) {
     formularioContactoInicio.addEventListener("submit", (evento) => {
