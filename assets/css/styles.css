@@ -1043,6 +1043,28 @@ body.modo-edicion [data-contenido][data-tipo="imagen"]:hover { outline: 2px dash
 .documento-item__cuerpo h4 { margin: 0 0 2px; font-size: .92rem; color: var(--tinta); font-family: var(--fuente-texto); }
 .documento-item__cuerpo p { margin: 0 0 6px; font-size: .8rem; color: #8b93a7; }
 .documento-item__cuerpo a { font-size: .82rem; font-weight: 700; color: var(--azul); }
+/* Ensayos de interés (Noticias): mismas tarjetas animadas que Propuestas, adaptadas a filas.
+   Entrada escalonada con una franja roja que se dibuja a la izquierda; con mouse se elevan un poco,
+   el título pasa a azul y la flecha avanza. Toda la tarjeta es el enlace al ensayo. */
+.lista-ensayos .documento-item { border-radius: 14px; padding: 16px 18px 16px 20px; background: var(--blanco); }
+.lista-ensayos .tarjeta--anima::before {
+  right: auto; bottom: 0; width: 4px; height: auto;
+  transform: scaleY(0); transform-origin: top;
+}
+.lista-ensayos.en-vista .tarjeta--anima::before { transform: scaleY(1); }
+.lista-ensayos .documento-item__cuerpo h4 { transition: color .2s ease; }
+.documento-item__flecha { display: inline-block; transition: transform .2s var(--ease-fuerte); }
+.lista-ensayos .documento-item__cuerpo a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.lista-ensayos .documento-item:has(a:focus-visible) { outline: 2px solid var(--azul); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .lista-ensayos .tarjeta--anima:hover { transform: translateY(-3px); }
+  .lista-ensayos .documento-item:hover .documento-item__cuerpo h4 { color: var(--azul); }
+  .lista-ensayos .documento-item:hover .documento-item__flecha { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lista-ensayos .tarjeta--anima::before { transform: scaleY(1); }
+  .documento-item__flecha { transition: none; }
+}
 .documento-item__quitar { background: none; border: none; color: #8a1f16; cursor: pointer; font-size: .8rem; flex-shrink: 0; }
 
 /* ---------- Flowing Menu (Principios) ---------- */
