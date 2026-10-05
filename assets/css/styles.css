@@ -379,6 +379,22 @@ p { margin: 0 0 1em; }
 .eje-propuesta ul { margin: 12px 0 0; padding-left: 20px; color: #33415c; }
 .eje-propuesta li { margin-bottom: 6px; }
 
+/* ---------- Tarjetas de iniciativas (entrada escalonada) ---------- */
+.tarjeta--iniciativa {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s cubic-bezier(.22,.75,.25,1), transform .5s cubic-bezier(.22,.75,.25,1);
+}
+.grilla-iniciativas.en-vista .tarjeta--iniciativa { opacity: 1; transform: translateY(0); }
+.grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(1) { transition-delay: 0ms; }
+.grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(2) { transition-delay: 70ms; }
+.grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(3) { transition-delay: 140ms; }
+.grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(4) { transition-delay: 210ms; }
+.grilla-iniciativas.en-vista .tarjeta--iniciativa:nth-child(5) { transition-delay: 280ms; }
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta--iniciativa { transition: none; opacity: 1; transform: none; }
+}
+
 /* ---------- Formulario Participá ---------- */
 .formulario {
   background: var(--blanco);

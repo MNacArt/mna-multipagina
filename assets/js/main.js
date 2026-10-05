@@ -30,6 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
     seccionAccion.classList.add("en-vista");
   }
 
+  const gruposAnimados = document.querySelectorAll("[data-animar-grupo]");
+  if (gruposAnimados.length && "IntersectionObserver" in window) {
+    const observadorGrupos = new IntersectionObserver(
+      (entradas, obs) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) {
+            entrada.target.classList.add("en-vista");
+            obs.unobserve(entrada.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    gruposAnimados.forEach((grupo) => observadorGrupos.observe(grupo));
+  } else {
+    gruposAnimados.forEach((grupo) => grupo.classList.add("en-vista"));
+  }
+
   const formulario = document.querySelector("#form-participa");
   if (formulario) {
     formulario.addEventListener("submit", (evento) => {
