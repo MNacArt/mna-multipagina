@@ -962,6 +962,8 @@ body.modo-edicion .fm-item p:empty { display: block; min-height: 1.5em; }
 }
 .fm-marquee__track span { padding: 0 22px; }
 .fm-marquee__sep { color: var(--rojo); }
+.fm-invertido .fm-marquee,
+.fm-invertido .fm-marquee__inner { transform: translateY(0); }
 @keyframes fm-desplazar { to { transform: translateX(-50%); } }
 body.modo-edicion .fm-marquee { display: none; }
 
