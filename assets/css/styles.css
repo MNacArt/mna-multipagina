@@ -307,7 +307,7 @@ p { margin: 0 0 1em; }
   border-bottom: 1px solid var(--borde);
   background: linear-gradient(180deg, rgba(6,56,130,.05), transparent);
 }
-.pagina-hero h1 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+.pagina-hero h1, .pagina-hero h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
 .pagina-hero__lead { max-width: 62ch; color: #33415c; font-size: 1.08rem; }
 .pagina-hero .boton { margin-top: 22px; }
 
