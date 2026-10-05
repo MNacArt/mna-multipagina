@@ -62,20 +62,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const ahorroDeDatos = (navigator.connection && navigator.connection.saveData) ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Videos de fondo: silenciosos y livianos (menos de 1 MB), así que se reproducen siempre.
+  // Si el navegador bloquea el autoplay (por ejemplo, ahorro de batería en el móvil),
+  // se reintenta en el primer toque o desplazamiento del usuario.
+  const reintentos = new Set();
+  const reproducir = (video) => {
+    video.muted = true;
+    const promesa = video.play();
+    if (promesa && promesa.catch) promesa.catch(() => reintentos.add(video));
+  };
+  const reintentar = () => {
+    reintentos.forEach((video) => {
+      const promesa = video.play();
+      if (promesa && promesa.then) promesa.then(() => reintentos.delete(video)).catch(() => {});
+    });
+  };
+  ["touchstart", "pointerdown", "scroll", "click"].forEach((tipo) =>
+    window.addEventListener(tipo, reintentar, { passive: true })
+  );
+
   document.querySelectorAll("video.seccion__video-fondo").forEach((video) => {
-    if (ahorroDeDatos) {
-      video.removeAttribute("autoplay");
-      video.pause();
+    const fuente = video.querySelector("source[data-src]");
+    if (!fuente) {
+      reproducir(video);
       return;
     }
-    const fuente = video.querySelector("source[data-src]");
-    if (!fuente) return;
     const cargar = () => {
       fuente.src = fuente.dataset.src;
       video.load();
-      video.play().catch(() => {});
+      reproducir(video);
     };
     if ("IntersectionObserver" in window) {
       const observadorVideo = new IntersectionObserver((entradas, obs) => {
