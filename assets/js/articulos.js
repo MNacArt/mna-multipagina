@@ -15,11 +15,13 @@ const MNA_ARTICULOS = (function () {
     }
   }
 
+  const TARJETA_VACIA = `<div class="tarjeta tarjeta--vacia">Espacio disponible para el próximo artículo.</div>`;
+
   async function renderArticulos(categoria, selector) {
     const contenedor = document.querySelector(selector);
     if (!contenedor) return;
     if (!MNA_SUPABASE) {
-      contenedor.innerHTML = `<p class="vacio">Todavía no hay contenido publicado.</p>`;
+      contenedor.innerHTML = TARJETA_VACIA;
       return;
     }
 
@@ -31,7 +33,7 @@ const MNA_ARTICULOS = (function () {
       .order("created_at", { ascending: false });
 
     if (error || !data || !data.length) {
-      contenedor.innerHTML = `<p class="vacio">Todavía no hay contenido publicado.</p>`;
+      contenedor.innerHTML = TARJETA_VACIA;
       return;
     }
 

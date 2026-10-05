@@ -652,6 +652,19 @@ p { margin: 0 0 1em; }
 .form-comentario input { flex: 1; }
 
 .vacio { text-align: center; color: #8b93a7; padding: 40px 20px; font-size: .95rem; }
+.tarjeta--vacia {
+  border: 1.5px dashed var(--borde);
+  background: transparent;
+  color: #8b93a7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: .9rem;
+  min-height: 160px;
+  box-shadow: none;
+}
+.tarjeta--vacia:hover { transform: none; box-shadow: none; }
 
 /* ---------- Mensajería ---------- */
 .hilo-mensajes { display: flex; flex-direction: column; gap: 12px; max-height: 460px; overflow-y: auto; padding: 6px 4px 14px; margin-bottom: 18px; }
