@@ -8,7 +8,7 @@ const MNA_DATOS = (function () {
   const conSaltos = (texto) => escapar(texto).replace(/\r?\n/g, "<br>");
 
   // El panel guarda rutas como "/assets/uploads/x.webp"; sin la barra inicial funcionan igual
-  // en github.io/mna-multipagina/ y en un dominio propio.
+  // en mnacart.github.io/mna-multipagina/ y en mnacionalartiguista.org.
   const media = (ruta) => (ruta ? String(ruta).replace(/^\//, "") : "");
 
   async function leer(archivo) {
