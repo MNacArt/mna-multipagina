@@ -6,8 +6,8 @@ backend:
   name: github
   repo: MNacArt/mna-multipagina
   branch: master
-  # Cuando exista el servicio de acceso en Cloudflare (ver instrucciones), descomentar y poner su URL:
-  # base_url: https://sveltia-cms-auth.TU-SUBDOMINIO.workers.dev
+  # Servicio de acceso con GitHub (Worker de Cloudflare)
+  base_url: https://sveltia-cms-auth.mna1811-uy.workers.dev
 
 site_url: https://mnacionalartiguista.org/
 display_url: https://mnacionalartiguista.org/
