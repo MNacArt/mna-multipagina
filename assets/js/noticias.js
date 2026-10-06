@@ -4,52 +4,37 @@ document.addEventListener("DOMContentLoaded", async () => {
   const puntos = raiz ? raiz.querySelector(".depth-carousel__dots") : null;
   if (!raiz || !stage) return;
 
-  function fechaLegible(iso) {
-    try {
-      return new Date(iso).toLocaleDateString("es-UY", { day: "2-digit", month: "long", year: "numeric" });
-    } catch (e) {
-      return "";
-    }
-  }
-
   function mostrarVacio() {
     stage.innerHTML = `<div class="depth-carousel__card activa" style="transform:translate(-50%,-50%);opacity:1;"><div class="tarjeta tarjeta--vacia">Espacio disponible para la próxima novedad.</div></div>`;
   }
 
-  if (!MNA_SUPABASE) {
+  // Las 3 más recientes (content/noticias.json, editable desde el panel).
+  const datos = await MNA_DATOS.leer("content/noticias.json");
+  const items = datos && Array.isArray(datos.items) ? MNA_DATOS.ordenarPorFecha(datos.items).slice(0, 3) : [];
+  if (!items.length) {
     mostrarVacio();
     return;
   }
 
-  const { data, error } = await MNA_SUPABASE
-    .from("articulos")
-    .select("*")
-    .eq("categoria", "noticias")
-    .eq("publicado", true)
-    .order("created_at", { ascending: false })
-    .limit(3);
-
-  if (error || !data || !data.length) {
-    mostrarVacio();
-    return;
-  }
-
-  stage.innerHTML = data.map((a) => `
+  stage.innerHTML = items.map((a) => {
+    const fecha = MNA_DATOS.fechaLegible(a.fecha);
+    return `
     <div class="depth-carousel__card">
       <article class="tarjeta tarjeta--noticia">
-        <span class="fecha">${fechaLegible(a.created_at)}</span>
-        <h3>${a.titulo}</h3>
-        ${a.texto ? `<p>${a.texto}</p>` : ""}
-        ${a.imagen_url ? `<img src="${a.imagen_url}" alt="" style="border-radius:10px;width:100%;">` : ""}
+        ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
+        <h3>${MNA_DATOS.escapar(a.titulo)}</h3>
+        ${a.texto ? `<p>${MNA_DATOS.conSaltos(a.texto)}</p>` : ""}
+        ${a.imagen ? `<img src="${MNA_DATOS.escapar(MNA_DATOS.media(a.imagen))}" alt="" style="border-radius:10px;width:100%;">` : ""}
       </article>
     </div>
-  `).join("");
+  `;
+  }).join("");
 
   if (puntos) {
-    puntos.innerHTML = data.map((_, i) => `<button type="button" class="depth-carousel__dot" aria-label="Ir a la novedad ${i + 1}"></button>`).join("");
+    puntos.innerHTML = items.map((_, i) => `<button type="button" class="depth-carousel__dot" aria-label="Ir a la novedad ${i + 1}"></button>`).join("");
   }
 
-  if (data.length > 1) {
+  if (items.length > 1) {
     initDepthCarousel(raiz, { loop: true });
   } else {
     raiz.querySelector(".depth-carousel__card").classList.add("activa");

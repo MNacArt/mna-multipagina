@@ -1,53 +1,36 @@
-// Lectura pública de contenido cargado desde el panel admin (Supabase).
-// Usado por principios.html (categoría "doctrina") y noticias.html (categoría "noticias").
+// Lectura pública de las publicaciones cargadas desde el panel (content/*.json).
+// Usado por propuestas.html ("Novedades", categoría "doctrina"). Las noticias del carrusel las pinta noticias.js.
 const MNA_ARTICULOS = (function () {
-  function idVideoEmbebible(url) {
-    if (!url) return null;
-    const m = url.match(/(?:youtu\.be\/|v=|embed\/|live\/|shorts\/)([A-Za-z0-9_-]{6,})/);
-    return m ? `https://www.youtube.com/embed/${m[1]}` : null;
-  }
-
-  function fechaLegible(iso) {
-    try {
-      return new Date(iso).toLocaleDateString("es-UY", { day: "2-digit", month: "long", year: "numeric" });
-    } catch (e) {
-      return "";
-    }
-  }
+  const ARCHIVOS = {
+    doctrina: "content/propuestas-novedades.json",
+    noticias: "content/noticias.json",
+  };
 
   const TARJETA_VACIA = `<div class="tarjeta tarjeta--vacia">Espacio disponible para el próximo artículo.</div>`;
 
   async function renderArticulos(categoria, selector) {
     const contenedor = document.querySelector(selector);
     if (!contenedor) return;
-    if (!MNA_SUPABASE) {
+
+    const datos = await MNA_DATOS.leer(ARCHIVOS[categoria]);
+    const items = datos && Array.isArray(datos.items) ? MNA_DATOS.ordenarPorFecha(datos.items) : [];
+    if (!items.length) {
       contenedor.innerHTML = TARJETA_VACIA;
       return;
     }
 
-    const { data, error } = await MNA_SUPABASE
-      .from("articulos")
-      .select("*")
-      .eq("categoria", categoria)
-      .eq("publicado", true)
-      .order("created_at", { ascending: false });
-
-    if (error || !data || !data.length) {
-      contenedor.innerHTML = TARJETA_VACIA;
-      return;
-    }
-
-    contenedor.innerHTML = data.map((a) => {
-      const embed = idVideoEmbebible(a.video_youtube_url);
+    contenedor.innerHTML = items.map((a) => {
+      const embed = MNA_DATOS.embedYoutube(a.youtube);
+      const fecha = MNA_DATOS.fechaLegible(a.fecha);
       return `
         <article class="tarjeta tarjeta--noticia tarjeta--anima">
-          <span class="fecha">${fechaLegible(a.created_at)}</span>
-          <h3>${a.titulo}</h3>
-          ${a.texto ? `<p>${a.texto}</p>` : ""}
-          ${a.imagen_url ? `<img src="${a.imagen_url}" alt="" style="border-radius:10px;width:100%;">` : ""}
-          ${embed ? `<div class="video-incrustado"><iframe src="${embed}" title="Video" allowfullscreen></iframe></div>` : ""}
-          ${a.video_archivo_url ? `<a href="${a.video_archivo_url}" download="${a.video_archivo_nombre || ""}" class="tarjeta__enlace">🎬 Descargar video</a>` : ""}
-          ${a.pdf_url ? `<a href="${a.pdf_url}" download="${a.pdf_nombre || ""}" class="tarjeta__enlace">📄 Descargar PDF</a>` : ""}
+          ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
+          <h3>${MNA_DATOS.escapar(a.titulo)}</h3>
+          ${a.texto ? `<p>${MNA_DATOS.conSaltos(a.texto)}</p>` : ""}
+          ${a.imagen ? `<img src="${MNA_DATOS.escapar(MNA_DATOS.media(a.imagen))}" alt="" style="border-radius:10px;width:100%;">` : ""}
+          ${embed ? `<div class="video-incrustado"><iframe src="${embed}" title="Video" loading="lazy" allowfullscreen></iframe></div>` : ""}
+          ${a.video ? `<a href="${MNA_DATOS.escapar(MNA_DATOS.media(a.video))}" download class="tarjeta__enlace">🎬 Descargar video</a>` : ""}
+          ${a.pdf ? `<a href="${MNA_DATOS.escapar(MNA_DATOS.media(a.pdf))}" download class="tarjeta__enlace">📄 Descargar PDF</a>` : ""}
         </article>
       `;
     }).join("");
@@ -67,36 +50,5 @@ const MNA_ARTICULOS = (function () {
     }
   }
 
-  async function renderDocumentos(selector) {
-    const contenedor = document.querySelector(selector);
-    if (!contenedor) return;
-    if (!MNA_SUPABASE) {
-      contenedor.innerHTML = `<p class="vacio">Todavía no hay documentos publicados.</p>`;
-      return;
-    }
-
-    const { data, error } = await MNA_SUPABASE
-      .from("documentos")
-      .select("*")
-      .eq("publicado", true)
-      .order("created_at", { ascending: false });
-
-    if (error || !data || !data.length) {
-      contenedor.innerHTML = `<p class="vacio">Todavía no hay documentos publicados.</p>`;
-      return;
-    }
-
-    contenedor.innerHTML = data.map((d) => `
-      <div class="documento-item">
-        <div class="documento-item__icono">📄</div>
-        <div class="documento-item__cuerpo">
-          <h4>${d.titulo}</h4>
-          ${d.descripcion ? `<p>${d.descripcion}</p>` : ""}
-          <a href="${d.archivo_url}" download="${d.archivo_nombre}">Descargar</a>
-        </div>
-      </div>
-    `).join("");
-  }
-
-  return { renderArticulos, renderDocumentos };
+  return { renderArticulos };
 })();

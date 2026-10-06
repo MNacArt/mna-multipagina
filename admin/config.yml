@@ -1,0 +1,389 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+# Panel de administración del sitio del Movimiento Nacional Artiguista (Sveltia CMS).
+# Los cambios se guardan como archivos en el repositorio de GitHub y el sitio se actualiza solo.
+
+backend:
+  name: github
+  repo: avvedit-creator/mna-multipagina
+  branch: master
+  # Cuando exista el servicio de acceso en Cloudflare (ver instrucciones), descomentar y poner su URL:
+  # base_url: https://sveltia-cms-auth.TU-SUBDOMINIO.workers.dev
+
+locale: es
+site_url: https://avvedit-creator.github.io/mna-multipagina/
+display_url: https://avvedit-creator.github.io/mna-multipagina/
+logo_url: https://avvedit-creator.github.io/mna-multipagina/assets/img/logo-sin-fondo.webp
+
+media_folder: /assets/uploads
+public_folder: /assets/uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 104857600
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+
+collections:
+  - name: publicaciones
+    label: "Publicaciones"
+    files:
+      - name: noticias
+        label: "Noticias (carrusel de Últimas publicaciones)"
+        file: content/noticias.json
+        fields:
+          - label: "Publicaciones"
+            label_singular: "publicación"
+            name: items
+            widget: list
+            summary: "{{fields.fecha}} — {{fields.titulo}}"
+            hint: "Se muestran las 3 más recientes."
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Fecha", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { label: "Texto", name: texto, widget: text, required: false }
+              - { label: "Imagen", name: imagen, widget: image, required: false }
+              - { label: "Enlace de YouTube (para incrustar el video)", name: youtube, widget: string, required: false, hint: "Pega el enlace completo. Para videos largos es la mejor opción." }
+              - { label: "Video (archivo descargable)", name: video, widget: file, required: false, hint: "Máximo 100 MB. Si es más grande, súbelo a YouTube y usa el enlace." }
+              - { label: "PDF", name: pdf, widget: file, required: false }
+      - name: propuestas_novedades
+        label: "Novedades (página de Propuestas)"
+        file: content/propuestas-novedades.json
+        fields:
+          - label: "Novedades"
+            label_singular: "novedad"
+            name: items
+            widget: list
+            summary: "{{fields.fecha}} — {{fields.titulo}}"
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Fecha", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { label: "Texto", name: texto, widget: text, required: false }
+              - { label: "Imagen", name: imagen, widget: image, required: false }
+              - { label: "Enlace de YouTube (para incrustar el video)", name: youtube, widget: string, required: false, hint: "Pega el enlace completo. Para videos largos es la mejor opción." }
+              - { label: "Video (archivo descargable)", name: video, widget: file, required: false, hint: "Máximo 100 MB. Si es más grande, súbelo a YouTube y usa el enlace." }
+              - { label: "PDF", name: pdf, widget: file, required: false }
+      - name: ensayos
+        label: "Ensayos de interés"
+        file: content/ensayos.json
+        fields:
+          - label: "Ensayos"
+            label_singular: "ensayo"
+            name: items
+            widget: list
+            summary: "{{fields.fecha}} — {{fields.titulo}}"
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Autor", name: autor, widget: string, required: false }
+              - { label: "Fecha de publicación", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+              - { label: "Enlace al ensayo", name: url, widget: string, hint: "Debe empezar con https://" }
+      - name: video
+        label: "Video de interés (Noticias)"
+        file: content/video.json
+        fields:
+          - { label: "Enlace de YouTube", name: url, widget: string, required: false, hint: "Cualquier enlace de YouTube (normal, en vivo, corto o youtu.be). Déjalo vacío para quitar la sección de la página." }
+
+  - name: textos
+    label: "Textos e imágenes de las páginas"
+    files:
+      - name: textos_inicio
+        label: "Inicio"
+        file: content/textos/inicio.json
+        fields:
+          - label: "Portada › Sobretítulo"
+            name: inicio_hero_eyebrow
+            widget: string
+            required: false
+          - label: "Portada › Título"
+            name: inicio_hero_titulo
+            widget: string
+            required: false
+          - label: "Portada › Frase"
+            name: inicio_hero_cita
+            widget: text
+            required: false
+          - label: "Nuestra acción › Imagen"
+            name: inicio_accion_imagen
+            widget: image
+            required: false
+          - label: "Nuestra acción › Sobretítulo"
+            name: inicio_accion_eyebrow
+            widget: string
+            required: false
+          - label: "Nuestra acción › Título"
+            name: inicio_accion_titulo
+            widget: string
+            required: false
+          - label: "Nuestra acción › Tarjeta 1 › Título"
+            name: inicio_accion_tarjeta1_titulo
+            widget: string
+            required: false
+          - label: "Nuestra acción › Tarjeta 1 › Texto"
+            name: inicio_accion_tarjeta1_texto
+            widget: text
+            required: false
+          - label: "Nuestra acción › Tarjeta 2 › Título"
+            name: inicio_accion_tarjeta2_titulo
+            widget: string
+            required: false
+          - label: "Nuestra acción › Tarjeta 2 › Texto"
+            name: inicio_accion_tarjeta2_texto
+            widget: text
+            required: false
+          - label: "Nuestra acción › Tarjeta 3 › Título"
+            name: inicio_accion_tarjeta3_titulo
+            widget: string
+            required: false
+          - label: "Nuestra acción › Tarjeta 3 › Texto"
+            name: inicio_accion_tarjeta3_texto
+            widget: text
+            required: false
+          - label: "Contacto › Sobretítulo"
+            name: inicio_contacto_eyebrow
+            widget: string
+            required: false
+          - label: "Contacto › Título"
+            name: inicio_contacto_titulo
+            widget: string
+            required: false
+          - label: "Contacto › Texto"
+            name: inicio_contacto_texto
+            widget: text
+            required: false
+          - label: "Donaciones › Sobretítulo"
+            name: inicio_donaciones_eyebrow
+            widget: string
+            required: false
+          - label: "Donaciones › Texto"
+            name: inicio_donaciones_texto
+            widget: text
+            required: false
+      - name: textos_principios
+        label: "Bases, Principios y Doctrina"
+        file: content/textos/principios.json
+        fields:
+          - label: "Portada › Sobretítulo"
+            name: principios_hero_eyebrow
+            widget: string
+            required: false
+          - label: "Portada › Título"
+            name: principios_hero_titulo
+            widget: string
+            required: false
+          - label: "Portada › Texto"
+            name: principios_hero_texto
+            widget: text
+            required: false
+          - label: "Tarjeta 1 › Título"
+            name: principios_tarjeta1_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 1 › Texto"
+            name: principios_tarjeta1_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 2 › Título"
+            name: principios_tarjeta2_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 2 › Texto"
+            name: principios_tarjeta2_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 3 › Título"
+            name: principios_tarjeta3_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 3 › Texto"
+            name: principios_tarjeta3_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 4 › Título"
+            name: principios_tarjeta4_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 4 › Texto"
+            name: principios_tarjeta4_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 5 › Título"
+            name: principios_tarjeta5_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 5 › Texto"
+            name: principios_tarjeta5_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 6 › Título"
+            name: principios_tarjeta6_titulo
+            widget: string
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Tarjeta 6 › Texto"
+            name: principios_tarjeta6_texto
+            widget: text
+            required: false
+            hint: "También se ve en la página de Inicio."
+          - label: "Llamado a participar › Título"
+            name: principios_cta_titulo
+            widget: string
+            required: false
+          - label: "Llamado a participar › Texto"
+            name: principios_cta_texto
+            widget: text
+            required: false
+      - name: textos_propuestas
+        label: "Propuestas"
+        file: content/textos/propuestas.json
+        fields:
+          - label: "Portada › Sobretítulo"
+            name: propuestas_hero_eyebrow
+            widget: string
+            required: false
+          - label: "Portada › Título"
+            name: propuestas_hero_titulo
+            widget: string
+            required: false
+          - label: "Portada › Texto"
+            name: propuestas_hero_texto
+            widget: text
+            required: false
+          - label: "Otras iniciativas › Sobretítulo"
+            name: propuestas_otras_eyebrow
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Título"
+            name: propuestas_otras_titulo
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Iniciativa 1"
+            name: propuestas_otras_item1
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Iniciativa 2"
+            name: propuestas_otras_item2
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Iniciativa 3"
+            name: propuestas_otras_item3
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Iniciativa 4"
+            name: propuestas_otras_item4
+            widget: string
+            required: false
+          - label: "Otras iniciativas › Iniciativa 5"
+            name: propuestas_otras_item5
+            widget: string
+            required: false
+          - label: "Tarjeta de descarga del PDF › Título"
+            name: propuestas_descarga_titulo
+            widget: string
+            required: false
+          - label: "Novedades › Título"
+            name: propuestas_novedades_titulo
+            widget: string
+            required: false
+          - label: "Llamado a participar › Título"
+            name: propuestas_cta_titulo
+            widget: string
+            required: false
+          - label: "Llamado a participar › Texto"
+            name: propuestas_cta_texto
+            widget: text
+            required: false
+      - name: textos_noticias
+        label: "Noticias"
+        file: content/textos/noticias.json
+        fields:
+          - label: "Portada › Sobretítulo"
+            name: noticias_hero_eyebrow
+            widget: string
+            required: false
+          - label: "Portada › Título"
+            name: noticias_hero_titulo
+            widget: string
+            required: false
+          - label: "Portada › Texto"
+            name: noticias_hero_texto
+            widget: text
+            required: false
+          - label: "Novedades › Sobretítulo"
+            name: noticias_novedades_eyebrow
+            widget: string
+            required: false
+          - label: "Novedades › Título"
+            name: noticias_novedades_titulo
+            widget: string
+            required: false
+          - label: "Ensayos de interés › Título"
+            name: noticias_ensayos_titulo
+            widget: string
+            required: false
+          - label: "Video de interés › Título"
+            name: noticias_video_titulo
+            widget: string
+            required: false
+      - name: textos_participa
+        label: "Participa"
+        file: content/textos/participa.json
+        fields:
+          - label: "Portada › Sobretítulo"
+            name: participa_hero_eyebrow
+            widget: string
+            required: false
+          - label: "Portada › Título"
+            name: participa_hero_titulo
+            widget: string
+            required: false
+          - label: "Portada › Texto"
+            name: participa_hero_texto
+            widget: text
+            required: false
+          - label: "Vía de contacto 1 › Título"
+            name: participa_via1_titulo
+            widget: string
+            required: false
+          - label: "Vía de contacto 1 › Texto"
+            name: participa_via1_texto
+            widget: text
+            required: false
+          - label: "Vía de contacto 2 › Título"
+            name: participa_via2_titulo
+            widget: string
+            required: false
+          - label: "Vía de contacto 2 › Texto"
+            name: participa_via2_texto
+            widget: text
+            required: false
+          - label: "Vía de contacto 3 › Título"
+            name: participa_via3_titulo
+            widget: string
+            required: false
+          - label: "Vía de contacto 3 › Texto"
+            name: participa_via3_texto
+            widget: text
+            required: false
+      - name: textos_pie
+        label: "Pie de página (todas las páginas)"
+        file: content/textos/pie.json
+        fields:
+          - label: "Biografía del movimiento"
+            name: pie_bio
+            widget: text
+            required: false
