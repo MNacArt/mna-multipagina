@@ -9,10 +9,10 @@ backend:
   # Cuando exista el servicio de acceso en Cloudflare (ver instrucciones), descomentar y poner su URL:
   # base_url: https://sveltia-cms-auth.TU-SUBDOMINIO.workers.dev
 
-locale: es
 site_url: https://avvedit-creator.github.io/mna-multipagina/
 display_url: https://avvedit-creator.github.io/mna-multipagina/
-logo_url: https://avvedit-creator.github.io/mna-multipagina/assets/img/logo-sin-fondo.webp
+logo:
+  src: https://avvedit-creator.github.io/mna-multipagina/assets/img/logo-sin-fondo.webp
 
 media_folder: /assets/uploads
 public_folder: /assets/uploads
