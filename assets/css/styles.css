@@ -261,7 +261,9 @@ p { margin: 0 0 1em; }
 .seccion--video .seccion__cabecera p.eyebrow::before { background: #fff; }
 .seccion--video .seccion__cabecera h2,
 .seccion--video .seccion__cabecera p { color: #fff; }
-.hero--video .seccion__video-fondo { inset: 0 0 auto 0; height: 150%; object-position: center top; }
+/* La estrella está al 49% del alto del video; con object-position 49% queda siempre al 49% de la caja,
+   y la caja (150% del hero) se sube un 30% para dejarla casi al centro, un poco hacia arriba. */
+.hero--video .seccion__video-fondo { inset: -30% 0 auto 0; height: 150%; object-position: 50% 49%; }
 .hero__cita { display: inline-block; text-align: center; max-width: 100%; }
 .hero__cita .hero__lead {
   text-align: left;
