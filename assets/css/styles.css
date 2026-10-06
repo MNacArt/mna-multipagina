@@ -855,39 +855,6 @@ p { margin: 0 0 1em; }
 .form-estado { display: inline-block; margin-left: 12px; font-size: .85rem; color: #445069; }
 .mensaje-envio--error { background: rgba(180,50,50,.08); color: #8a1f16; }
 
-/* ---------- Edición en vivo de textos e imágenes ---------- */
-#boton-modo-edicion {
-  position: fixed; right: 20px; bottom: 20px; z-index: 200;
-  background: var(--azul); color: var(--blanco); border: none; border-radius: 999px;
-  padding: 12px 20px; font-family: var(--fuente-texto); font-weight: 700; font-size: .9rem;
-  cursor: pointer; box-shadow: var(--sombra);
-}
-#boton-modo-edicion:hover { background: var(--azul-oscuro); }
-body.modo-edicion #boton-modo-edicion { display: none; }
-
-#franja-modo-edicion {
-  display: none;
-  position: sticky; top: 0; z-index: 210;
-  background: var(--rojo); color: var(--blanco);
-  padding: 10px 20px; font-size: .88rem; font-weight: 600;
-  align-items: center; justify-content: center; gap: 16px; text-align: center; flex-wrap: wrap;
-}
-body.modo-edicion #franja-modo-edicion { display: flex; }
-#boton-salir-edicion {
-  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.5); color: var(--blanco);
-  border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; cursor: pointer;
-}
-#boton-salir-edicion:hover { background: rgba(255,255,255,.3); }
-
-body.modo-edicion [data-contenido][data-tipo="texto"] {
-  outline: 2px dashed transparent; outline-offset: 4px; cursor: text; transition: outline-color .15s ease;
-}
-body.modo-edicion [data-contenido][data-tipo="texto"]:hover,
-body.modo-edicion [data-contenido][data-tipo="texto"]:focus {
-  outline-color: var(--azul);
-}
-body.modo-edicion [data-contenido][data-tipo="imagen"] { position: relative; cursor: pointer; }
-body.modo-edicion [data-contenido][data-tipo="imagen"]:hover { outline: 2px dashed var(--azul); outline-offset: 4px; }
 .lista-novedades-admin { display: flex; flex-direction: column; gap: 12px; }
 .novedad-admin-item {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
@@ -1095,7 +1062,6 @@ body.modo-edicion [data-contenido][data-tipo="imagen"]:hover { outline: 2px dash
 .fm-item p:empty { display: none; }
 .fm-item p { margin: 6px 0 0; color: #445069; }
 .fm-item ul { margin: 8px 0 0; padding-left: 20px; color: #445069; }
-body.modo-edicion .fm-item p:empty { display: block; min-height: 1.5em; }
 
 .fm-marquee {
   position: absolute;
@@ -1140,19 +1106,11 @@ body.modo-edicion .fm-item p:empty { display: block; min-height: 1.5em; }
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-body.modo-edicion .fm-invertido h3 {
-  position: static;
-  width: auto; height: auto;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-}
 /* Modo táctil (sin hover): la franja se destapa al entrar la fila en pantalla o al tocarla. */
 .fm-tactil { cursor: pointer; }
 .fm-tactil.fm-revelado .fm-marquee { transform: translateY(-101%); }
 .fm-tactil.fm-revelado .fm-marquee__inner { transform: translateY(101%); }
 @keyframes fm-desplazar { to { transform: translateX(-50%); } }
-body.modo-edicion .fm-marquee { display: none; }
 
 /* ---------- Depth Carousel ---------- */
 .depth-carousel {

@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("a[data-pdf]").forEach((enlace) => {
     const etiqueta = enlace.querySelector(".tarjeta__etiqueta");
     enlace.addEventListener("click", (evento) => {
-      if (document.body.classList.contains("modo-edicion") || enlace.classList.contains("tarjeta--pronto")) {
+      if (enlace.classList.contains("tarjeta--pronto")) {
         evento.preventDefault();
       }
     });

@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     item.addEventListener("mouseenter", (evento) => {
-      if (document.body.classList.contains("modo-edicion")) return;
       const arriba = borde(evento) === "top";
       mover(arriba ? "-101%" : "101%", arriba ? "101%" : "-101%");
     });
@@ -61,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   items.forEach((item) => {
     item.classList.add("fm-tactil");
     item.addEventListener("click", () => {
-      if (document.body.classList.contains("modo-edicion")) return;
       if (tieneTexto(item)) item.classList.toggle("fm-revelado");
     });
   });
