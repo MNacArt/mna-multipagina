@@ -4,15 +4,15 @@
 
 backend:
   name: github
-  repo: avvedit-creator/mna-multipagina
+  repo: MNacArt/mna-multipagina
   branch: master
   # Cuando exista el servicio de acceso en Cloudflare (ver instrucciones), descomentar y poner su URL:
   # base_url: https://sveltia-cms-auth.TU-SUBDOMINIO.workers.dev
 
-site_url: https://avvedit-creator.github.io/mna-multipagina/
-display_url: https://avvedit-creator.github.io/mna-multipagina/
+site_url: https://mnacart.github.io/mna-multipagina/
+display_url: https://mnacart.github.io/mna-multipagina/
 logo:
-  src: https://avvedit-creator.github.io/mna-multipagina/assets/img/logo-sin-fondo.webp
+  src: https://mnacart.github.io/mna-multipagina/assets/img/logo-sin-fondo.webp
 
 media_folder: /assets/uploads
 public_folder: /assets/uploads
