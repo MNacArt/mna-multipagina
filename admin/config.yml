@@ -387,3 +387,11 @@ collections:
             name: pie_bio
             widget: text
             required: false
+      - name: redes_sociales
+        label: "Redes sociales (pie de página)"
+        file: content/redes.json
+        fields:
+          - { label: "Instagram", name: instagram, widget: string, required: false, hint: "Enlace completo, empieza con https://. Si lo dejas vacío, el botón se oculta." }
+          - { label: "X (Twitter)", name: x, widget: string, required: false, hint: "Ejemplo: https://x.com/tu_usuario. El botón aparece en el pie solo cuando pegas el enlace." }
+          - { label: "Facebook", name: facebook, widget: string, required: false, hint: "Ejemplo: https://www.facebook.com/tu_pagina. El botón aparece solo cuando pegas el enlace." }
+          - { label: "TikTok", name: tiktok, widget: string, required: false, hint: "Ejemplo: https://www.tiktok.com/@tu_usuario. El botón aparece solo cuando pegas el enlace." }

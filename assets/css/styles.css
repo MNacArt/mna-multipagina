@@ -672,6 +672,7 @@ p { margin: 0 0 1em; }
   border: 1px solid rgba(255,255,255,.3);
   display: flex; align-items: center; justify-content: center;
 }
+.pie__redes a[hidden] { display: none; }
 .pie__redes a:hover { background: var(--rojo); border-color: var(--rojo); }
 .pie__icono { width: 18px; height: 18px; display: block; }
 .pie__subtitulo { margin-top: 44px; }
