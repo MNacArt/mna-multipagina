@@ -263,6 +263,10 @@ p { margin: 0 0 1em; }
 .seccion--video .seccion__cabecera p { color: #fff; }
 /* La estrella está al 49% del alto del video; con object-position 49% queda siempre al 49% de la caja,
    y la caja (150% del hero) se sube un 30% para dejarla casi al centro, un poco hacia arriba. */
+/* "¿Coincides con estas ideas?" (Principios y Propuestas): mismo video del inicio, capa más oscura y texto blanco. */
+.cta-video .seccion__video-capa { background: rgba(6,10,20,.68); }
+.cta-video h2 { color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.45); }
+.cta-video p { color: #fff; font-size: 1.08rem; text-shadow: 0 1px 10px rgba(0,0,0,.5); }
 .hero--video .seccion__video-fondo { inset: -30% 0 auto 0; height: 150%; object-position: 50% 49%; }
 .hero__cita { display: inline-block; text-align: center; max-width: 100%; }
 .hero__cita .hero__lead {
