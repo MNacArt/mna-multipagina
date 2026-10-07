@@ -5,8 +5,11 @@
 name: Publicar sitio
 
 on:
-  push:
-    branches: [master]
+  # PENDIENTE: para activarlo, primero hay que poner Settings > Pages > Source en "GitHub Actions";
+  # después se descomenta el disparador "push" de abajo. Con la fuente en "Deploy from a branch",
+  # la publicación antigua pisa a esta y las páginas generadas desaparecen.
+  # push:
+  #   branches: [master]
   workflow_dispatch:
 
 permissions:
