@@ -67,11 +67,10 @@
         <p class="eyebrow" data-contenido="noticias.novedades.eyebrow" data-tipo="texto">Novedades</p>
         <h2 data-contenido="noticias.novedades.titulo" data-tipo="texto">Últimas publicaciones</h2>
       </div>
-      <div class="depth-carousel" id="carrusel-novedades">
-        <div class="depth-carousel__stage"></div>
-        <button type="button" class="depth-carousel__flecha depth-carousel__flecha--prev" aria-label="Novedad anterior">‹</button>
-        <button type="button" class="depth-carousel__flecha depth-carousel__flecha--next" aria-label="Novedad siguiente">›</button>
-        <div class="depth-carousel__dots"></div>
+      <div class="carrusel-paralelo" id="carrusel-novedades">
+        <div class="carrusel-paralelo__pista"></div>
+        <button type="button" class="carrusel-paralelo__flecha carrusel-paralelo__flecha--prev" aria-label="Novedades anteriores" hidden>‹</button>
+        <button type="button" class="carrusel-paralelo__flecha carrusel-paralelo__flecha--next" aria-label="Novedades siguientes" hidden>›</button>
       </div>
     </div>
   </section>
@@ -169,7 +168,6 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/datos.js"></script>
-<script src="assets/js/depth-carousel.js"></script>
 <script src="assets/js/noticias.js"></script>
 <script src="assets/js/ensayos.js"></script>
 <script src="assets/js/contenido.js"></script>

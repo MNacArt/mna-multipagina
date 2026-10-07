@@ -60,7 +60,7 @@ const MNA_DATOS = (function () {
     return `
       <article class="tarjeta tarjeta--noticia tarjeta--resumen${clase ? " " + clase : ""}${a.imagen ? " tarjeta--con-imagen" : ""}">
         ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
-        <h3>${escapar(a.titulo)}</h3>
+        <h3><a href="${enlace}" class="tarjeta__enlace-total">${escapar(a.titulo)}</a></h3>
         ${a.texto ? `<p>${conSaltos(a.texto)}</p>` : ""}
         ${a.imagen ? `<img src="${escapar(media(a.imagen))}" alt="" class="tarjeta__imagen">` : ""}
         <a href="${enlace}" class="boton boton-primario boton-chico tarjeta__leer" aria-label="Leer más: ${escapar(a.titulo)}">Leer más</a>
