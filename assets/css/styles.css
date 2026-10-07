@@ -342,6 +342,13 @@ p { margin: 0 0 1em; }
 .pagina-hero h1, .pagina-hero h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
 .pagina-hero__lead { max-width: 62ch; color: #33415c; font-size: 1.08rem; }
 .pagina-hero .boton { margin-top: 22px; }
+/* Titulares de Principios y Propuestas con el video del inicio de fondo y texto blanco. */
+.pagina-hero--video { position: relative; z-index: 0; overflow: hidden; background: var(--azul); }
+.pagina-hero--video .seccion__video-capa { background: rgba(6,10,20,.62); }
+.pagina-hero--video .eyebrow { color: #fff; }
+.pagina-hero--video .eyebrow::before { background: #fff; }
+.pagina-hero--video h1 { color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.45); }
+.pagina-hero--video .pagina-hero__lead { color: #fff; text-shadow: 0 1px 10px rgba(0,0,0,.5); }
 
 /* ---------- Tarjetas / grillas ---------- */
 .grilla-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
