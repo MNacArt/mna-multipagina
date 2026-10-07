@@ -390,6 +390,8 @@ p { margin: 0 0 1em; }
 
 .tarjeta--principio { border-top: 4px solid var(--rojo); }
 .tarjeta--noticia { display: flex; flex-direction: column; gap: 10px; }
+/* Si hay una sola novedad, ocupa todo el ancho en vez de quedar en una columna angosta. */
+#lista-actualidad-publico > .tarjeta--noticia:only-child { grid-column: 1 / -1; max-width: 820px; }
 .tarjeta--noticia .fecha {
   font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
   color: var(--rojo); font-weight: 700;
