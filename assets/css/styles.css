@@ -407,7 +407,7 @@ p { margin: 0 0 1em; }
   flex: 0 1 110px; min-height: 40px; max-height: 110px;
 }
 .tarjeta__leer { margin-top: auto; align-self: flex-start; }
-.depth-carousel__card .tarjeta--resumen { height: 372px; }
+.depth-carousel__card .tarjeta.tarjeta--resumen { height: 372px; }
 
 /* ---------- Página de una publicación (articulo.html) ---------- */
 .articulo { max-width: 760px; }
