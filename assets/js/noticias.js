@@ -25,8 +25,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function actualizarFlechas() {
     const desborda = pista.scrollWidth - pista.clientWidth > 2;
-    anterior.hidden = !desborda || pista.scrollLeft <= 2;
-    siguiente.hidden = !desborda || pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2;
+    // La pista tiene 4 px de relleno a cada lado, por eso el "inicio" es scrollLeft ≈ 4.
+    anterior.hidden = !desborda || pista.scrollLeft <= 8;
+    siguiente.hidden = !desborda || pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 8;
   }
 
   anterior.addEventListener("click", () => pista.scrollBy({ left: -paso(), behavior: "smooth" }));
