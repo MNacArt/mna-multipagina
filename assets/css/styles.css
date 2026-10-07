@@ -48,6 +48,12 @@ h1, h2, h3, h4 {
 
 p { margin: 0 0 1em; }
 
+/* Texto solo para lectores de pantalla y buscadores (mantiene el orden de los títulos sin cambiar el diseño). */
+.solo-lectores {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; margin: -1px;
+}
+
 .contenedor {
   width: 100%;
   max-width: var(--ancho-maximo);
@@ -642,7 +648,7 @@ p { margin: 0 0 1em; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; font-size: 1.05rem;
 }
-.via-contacto h4 { margin: 0 0 4px; font-family: var(--fuente-texto); font-size: 1rem; color: var(--tinta); }
+.via-contacto h4, .via-contacto h2 { margin: 0 0 4px; font-family: var(--fuente-texto); font-size: 1rem; color: var(--tinta); }
 .via-contacto p { margin: 0; color: #445069; font-size: .92rem; }
 .via-contacto a { color: var(--azul); font-weight: 700; }
 
@@ -669,7 +675,7 @@ p { margin: 0 0 1em; }
 .pie__marca img { width: 46px; height: 46px; object-fit: contain; }
 .pie__marca strong { display: block; font-family: var(--fuente-titulo); color: var(--blanco); font-size: 1.05rem; }
 .pie p { color: rgba(255,255,255,.7); font-size: .92rem; }
-.pie h4 { color: var(--blanco); font-family: var(--fuente-texto); font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; }
+.pie h4, .pie h2 { color: var(--blanco); font-family: var(--fuente-texto); font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; }
 .pie ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .pie a { color: rgba(255,255,255,.78); font-size: .95rem; }
 .pie a:hover { color: var(--blanco); }
@@ -1081,7 +1087,7 @@ p { margin: 0 0 1em; }
   display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;
 }
 .documento-item__cuerpo { min-width: 0; flex: 1; }
-.documento-item__cuerpo h4 { margin: 0 0 2px; font-size: .92rem; color: var(--tinta); font-family: var(--fuente-texto); }
+.documento-item__cuerpo h4, .documento-item__cuerpo h3 { margin: 0 0 2px; font-size: .92rem; color: var(--tinta); font-family: var(--fuente-texto); }
 .documento-item__cuerpo p { margin: 0 0 6px; font-size: .8rem; color: #8b93a7; }
 .documento-item__cuerpo a { font-size: .82rem; font-weight: 700; color: var(--azul); }
 /* Ensayos de interés (Noticias): mismas tarjetas animadas que Propuestas, adaptadas a filas.
@@ -1093,13 +1099,13 @@ p { margin: 0 0 1em; }
   transform: scaleY(0); transform-origin: top;
 }
 .lista-ensayos.en-vista .tarjeta--anima::before { transform: scaleY(1); }
-.lista-ensayos .documento-item__cuerpo h4 { transition: color .2s ease; }
+.lista-ensayos .documento-item__cuerpo h4, .lista-ensayos .documento-item__cuerpo h3 { transition: color .2s ease; }
 .documento-item__flecha { display: inline-block; transition: transform .2s var(--ease-fuerte); }
 .lista-ensayos .documento-item__cuerpo a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .lista-ensayos .documento-item:has(a:focus-visible) { outline: 2px solid var(--azul); outline-offset: 2px; }
 @media (hover: hover) and (pointer: fine) {
   .lista-ensayos .tarjeta--anima:hover { transform: translateY(-3px); }
-  .lista-ensayos .documento-item:hover .documento-item__cuerpo h4 { color: var(--azul); }
+  .lista-ensayos .documento-item:hover .documento-item__cuerpo h4, .lista-ensayos .documento-item:hover .documento-item__cuerpo h3 { color: var(--azul); }
   .lista-ensayos .documento-item:hover .documento-item__flecha { transform: translateX(4px); }
 }
 @media (prefers-reduced-motion: reduce) {

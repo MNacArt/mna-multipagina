@@ -3,22 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Publicación — Movimiento Nacional Artiguista</title>
-<meta name="description" content="Publicación del Movimiento Nacional Artiguista.">
+<base href="/">
+<meta name="robots" content="noindex">
+<title>Página no encontrada — Movimiento Nacional Artiguista de Uruguay</title>
+<meta name="description" content="La página que buscas no existe o cambió de lugar.">
 <meta name="theme-color" content="#063882">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="es_UY">
-<meta property="og:site_name" content="Movimiento Nacional Artiguista">
-<meta property="og:title" content="Publicación">
-<meta property="og:description" content="Novedades y comunicados del movimiento.">
-<meta property="og:image" content="https://mnacionalartiguista.org/assets/img/og-imagen.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Escudo del Movimiento Nacional Artiguista">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Publicación — Movimiento Nacional Artiguista">
-<meta name="twitter:description" content="Novedades y comunicados del movimiento.">
-<meta name="twitter:image" content="https://mnacionalartiguista.org/assets/img/og-imagen.jpg">
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" href="assets/img/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -50,16 +39,28 @@
 </header>
 
 <main>
-  <section class="pagina-hero">
+  <section class="pagina-hero pagina-hero--video">
+    <video class="seccion__video-fondo" autoplay muted loop playsinline preload="metadata" poster="assets/video/bandera-mna-filtro-poster.jpg">
+      <source src="assets/video/bandera-mna-filtro.mp4" type="video/mp4">
+    </video>
+    <div class="seccion__video-capa"></div>
     <div class="contenedor">
-      <p class="eyebrow" id="articulo-eyebrow">Publicación</p>
-      <h1 id="articulo-titulo">Cargando…</h1>
-      <p class="articulo__fecha" id="articulo-fecha"></p>
+      <p class="eyebrow">Error 404</p>
+      <h1>Esta página no existe</h1>
+      <p class="pagina-hero__lead">Puede que el enlace esté incompleto o que la página haya cambiado de lugar.</p>
     </div>
   </section>
 
   <section class="seccion">
-    <div class="contenedor articulo" id="articulo-contenido" aria-live="polite"></div>
+    <div class="contenedor" style="text-align:center;max-width:640px;">
+      <p style="color:#33415c;">Puedes volver al inicio o ir directo a una de estas secciones:</p>
+      <div class="hero__acciones" style="justify-content:center;">
+        <a href="index.html" class="boton boton-primario">Ir al inicio</a>
+        <a href="propuestas.html" class="boton boton-secundario">Propuestas</a>
+        <a href="noticias.html" class="boton boton-secundario">Noticias</a>
+        <a href="participa.html" class="boton boton-rojo">Participa</a>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -97,7 +98,5 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/redes.js"></script>
-<script src="assets/js/datos.js"></script>
-<script src="assets/js/articulo.js"></script>
 </body>
 </html>

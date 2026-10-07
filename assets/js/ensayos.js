@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="documento-item tarjeta--anima">
           <div class="documento-item__icono">📄</div>
           <div class="documento-item__cuerpo">
-            <h4>${MNA_DATOS.escapar(e.titulo)}</h4>
+            <h3>${MNA_DATOS.escapar(e.titulo)}</h3>
             ${detalle ? `<p>${MNA_DATOS.escapar(detalle)}</p>` : ""}
             <a href="${MNA_DATOS.escapar(MNA_DATOS.enlaceSeguro(e.url))}" target="_blank" rel="noopener">Leer ensayo <span class="documento-item__flecha" aria-hidden="true">→</span></a>
           </div>
