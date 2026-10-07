@@ -16,19 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  stage.innerHTML = items.map((a) => {
-    const fecha = MNA_DATOS.fechaLegible(a.fecha);
-    return `
-    <div class="depth-carousel__card">
-      <article class="tarjeta tarjeta--noticia">
-        ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
-        <h3>${MNA_DATOS.escapar(a.titulo)}</h3>
-        ${a.texto ? `<p>${MNA_DATOS.conSaltos(a.texto)}</p>` : ""}
-        ${a.imagen ? `<img src="${MNA_DATOS.escapar(MNA_DATOS.media(a.imagen))}" alt="" style="border-radius:10px;width:100%;">` : ""}
-      </article>
-    </div>
-  `;
-  }).join("");
+  stage.innerHTML = items.map((a) => `
+    <div class="depth-carousel__card">${MNA_DATOS.tarjetaResumen("noticias", a)}</div>
+  `).join("");
 
   if (puntos) {
     puntos.innerHTML = items.map((_, i) => `<button type="button" class="depth-carousel__dot" aria-label="Ir a la novedad ${i + 1}"></button>`).join("");

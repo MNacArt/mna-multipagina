@@ -19,21 +19,8 @@ const MNA_ARTICULOS = (function () {
       return;
     }
 
-    contenedor.innerHTML = items.map((a) => {
-      const embed = MNA_DATOS.embedYoutube(a.youtube);
-      const fecha = MNA_DATOS.fechaLegible(a.fecha);
-      return `
-        <article class="tarjeta tarjeta--noticia tarjeta--anima">
-          ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
-          <h3>${MNA_DATOS.escapar(a.titulo)}</h3>
-          ${a.texto ? `<p>${MNA_DATOS.conSaltos(a.texto)}</p>` : ""}
-          ${a.imagen ? `<img src="${MNA_DATOS.escapar(MNA_DATOS.media(a.imagen))}" alt="" style="border-radius:10px;width:100%;">` : ""}
-          ${embed ? `<div class="video-incrustado"><iframe src="${embed}" title="Video" loading="lazy" allowfullscreen></iframe></div>` : ""}
-          ${a.video ? `<a href="${MNA_DATOS.escapar(MNA_DATOS.media(a.video))}" download class="tarjeta__enlace">🎬 Descargar video</a>` : ""}
-          ${a.pdf ? `<a href="${MNA_DATOS.escapar(MNA_DATOS.media(a.pdf))}" download class="tarjeta__enlace">📄 Descargar PDF</a>` : ""}
-        </article>
-      `;
-    }).join("");
+    // Tarjetas resumidas con botón "Leer más"; el artículo completo (texto, imagen, video, PDF) está en articulo.html.
+    contenedor.innerHTML = items.map((a) => MNA_DATOS.tarjetaResumen(categoria, a, "tarjeta--anima")).join("");
 
     // Entrada escalonada: se activa cuando la lista entra en pantalla (las tarjetas se crean
     // después de cargar la página, por eso se observa acá y no en main.js).

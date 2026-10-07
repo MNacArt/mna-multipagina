@@ -46,5 +46,26 @@ const MNA_DATOS = (function () {
 
   const enlaceSeguro = (url) => (/^https?:\/\//i.test(url) ? url : "#");
 
-  return { escapar, conSaltos, media, leer, fechaLegible, ordenarPorFecha, idYoutube, embedYoutube, enlaceSeguro };
+  // Identificador estable de una publicación (fecha + título sin tildes), para su página "articulo.html".
+  const slug = (a) =>
+    (String(a.fecha || "").slice(0, 10) + "-" + String(a.titulo || ""))
+      .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  // Tarjeta resumida de una publicación: el texto se recorta y el botón "Leer más" lleva al artículo completo.
+  // Las tarjetas nunca pasan de 372 px de alto (ver .tarjeta--resumen en styles.css).
+  const tarjetaResumen = (categoria, a, clase) => {
+    const fecha = fechaLegible(a.fecha);
+    const enlace = `articulo.html?c=${encodeURIComponent(categoria)}&a=${encodeURIComponent(slug(a))}`;
+    return `
+      <article class="tarjeta tarjeta--noticia tarjeta--resumen${clase ? " " + clase : ""}${a.imagen ? " tarjeta--con-imagen" : ""}">
+        ${fecha ? `<span class="fecha">${fecha}</span>` : ""}
+        <h3>${escapar(a.titulo)}</h3>
+        ${a.texto ? `<p>${conSaltos(a.texto)}</p>` : ""}
+        ${a.imagen ? `<img src="${escapar(media(a.imagen))}" alt="" class="tarjeta__imagen">` : ""}
+        <a href="${enlace}" class="boton boton-primario boton-chico tarjeta__leer" aria-label="Leer más: ${escapar(a.titulo)}">Leer más</a>
+      </article>`;
+  };
+
+  return { escapar, conSaltos, media, leer, fechaLegible, ordenarPorFecha, idYoutube, embedYoutube, enlaceSeguro, slug, tarjetaResumen };
 })();
