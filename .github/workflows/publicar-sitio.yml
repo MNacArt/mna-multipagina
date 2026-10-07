@@ -1,0 +1,48 @@
+# Publica el sitio en GitHub Pages cada vez que cambia master (también cuando se guarda desde el panel).
+# Antes de publicar genera una página HTML por cada publicación de Noticias y de Novedades
+# (carpetas noticias/ y novedades/) y actualiza sitemap.xml, para que Google las indexe.
+# Las páginas generadas NO se guardan en el repositorio: solo existen en el sitio publicado.
+name: Publicar sitio
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Armar el sitio
+        run: |
+          mkdir _sitio
+          tar --exclude=./.git --exclude=./.github --exclude=./_sitio --exclude=./scripts -cf - . | tar -xf - -C _sitio
+          # Si la generación falla, el sitio se publica igual (sin las páginas de publicaciones).
+          node scripts/generar-publicaciones.mjs _sitio || echo "::warning::No se pudieron generar las páginas de publicaciones"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _sitio
+
+  desplegar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4
