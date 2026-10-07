@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+# Panel para REDACTORES del sitio del Movimiento Nacional Artiguista (Sveltia CMS).
+# Solo permite editar las Novedades de Propuestas y las Últimas publicaciones de Noticias.
+# Cada cambio se envía como propuesta ("Publicar" lo aprueba y lo publica) y GitHub verifica
+# automáticamente que el redactor no haya tocado nada más (.github/workflows/control-redactores.yml).
+
+backend:
+  name: github
+  repo: MNacArt/mna-multipagina
+  branch: master
+  base_url: https://sveltia-cms-auth.mna1811-uy.workers.dev
+
+publish_mode: editorial_workflow
+
+site_url: https://mnacionalartiguista.org/
+display_url: https://mnacionalartiguista.org/
+logo:
+  src: https://mnacionalartiguista.org/assets/img/logo-sin-fondo.webp
+
+media_folder: /assets/uploads
+public_folder: /assets/uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 104857600
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+
+collections:
+  - name: publicaciones
+    label: "Publicaciones"
+    files:
+      - name: noticias
+        label: "Noticias (carrusel de Últimas publicaciones)"
+        file: content/noticias.json
+        fields:
+          - label: "Publicaciones"
+            label_singular: "publicación"
+            name: items
+            widget: list
+            summary: "{{fields.fecha}} — {{fields.titulo}}"
+            hint: "Se muestran las 3 más recientes."
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Fecha", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { label: "Texto", name: texto, widget: text, required: false }
+              - { label: "Imagen", name: imagen, widget: image, required: false }
+              - { label: "Enlace de YouTube (para incrustar el video)", name: youtube, widget: string, required: false, hint: "Pega el enlace completo. Para videos largos es la mejor opción." }
+              - { label: "Video (archivo descargable)", name: video, widget: file, required: false, hint: "Máximo 100 MB. Si es más grande, súbelo a YouTube y usa el enlace." }
+              - { label: "PDF", name: pdf, widget: file, required: false }
+      - name: propuestas_novedades
+        label: "Novedades (página de Propuestas)"
+        file: content/propuestas-novedades.json
+        fields:
+          - label: "Novedades"
+            label_singular: "novedad"
+            name: items
+            widget: list
+            summary: "{{fields.fecha}} — {{fields.titulo}}"
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Fecha", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { label: "Texto", name: texto, widget: text, required: false }
+              - { label: "Imagen", name: imagen, widget: image, required: false }
+              - { label: "Enlace de YouTube (para incrustar el video)", name: youtube, widget: string, required: false, hint: "Pega el enlace completo. Para videos largos es la mejor opción." }
+              - { label: "Video (archivo descargable)", name: video, widget: file, required: false, hint: "Máximo 100 MB. Si es más grande, súbelo a YouTube y usa el enlace." }
+              - { label: "PDF", name: pdf, widget: file, required: false }

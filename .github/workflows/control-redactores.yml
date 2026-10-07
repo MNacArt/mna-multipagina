@@ -1,0 +1,65 @@
+# Control de redactores: un colaborador con permiso de escritura (rol "Write") solo puede publicar
+# cambios en las Novedades de Propuestas y en las Últimas publicaciones de Noticias.
+# Los administradores (rol "Admin" o "Maintain") no tienen límites.
+# Este flujo usa pull_request_target: corre siempre la versión de master, así un redactor no puede
+# modificarlo desde su propio cambio. La regla del repositorio exige que este control pase.
+name: Control de redactores
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  control:
+    name: Control de redactores
+    runs-on: ubuntu-latest
+    steps:
+      - name: Revisar los archivos del cambio
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          rol=$(gh api "repos/$REPO/collaborators/$AUTOR/permission" --jq '.role_name' 2>/dev/null || echo "none")
+          echo "Autor: $AUTOR (rol: $rol)"
+          if [ "$rol" = "admin" ] || [ "$rol" = "maintain" ]; then
+            echo "Administrador: sin límites."
+            exit 0
+          fi
+
+          permitido() {
+            case "$1" in
+              content/noticias.json|content/propuestas-novedades.json) return 0 ;;
+            esac
+            # Imágenes, PDF y videos de las publicaciones (sin SVG, HTML ni scripts).
+            if echo "$1" | grep -Eiq '^assets/uploads/[^/]+\.(webp|jpe?g|png|gif|pdf|mp4|webm)$'; then
+              return 0
+            fi
+            return 1
+          }
+
+          archivos=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[] | .filename, (.previous_filename // empty)')
+          if [ -z "$archivos" ]; then
+            echo "El cambio no tiene archivos."
+            exit 0
+          fi
+
+          fallo=0
+          while IFS= read -r f; do
+            if permitido "$f"; then
+              echo "OK       $f"
+            else
+              echo "::error::No permitido para redactores: $f"
+              fallo=1
+            fi
+          done <<< "$archivos"
+
+          if [ "$fallo" -ne 0 ]; then
+            echo "Un redactor solo puede cambiar las Novedades de Propuestas y las Últimas publicaciones de Noticias."
+            exit 1
+          fi
