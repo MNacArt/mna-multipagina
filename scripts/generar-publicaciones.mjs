@@ -96,7 +96,7 @@ function pagina(cat, a, url) {
           "@type": "Organization",
           name: "Movimiento Nacional Artiguista",
           url: `${SITIO}/`,
-          logo: { "@type": "ImageObject", url: `${SITIO}/assets/img/logo-nuevo.png` },
+          logo: { "@type": "ImageObject", url: `${SITIO}/assets/img/logo-sf.png` },
         },
       },
       {
