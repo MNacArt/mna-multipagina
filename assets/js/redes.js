@@ -1,6 +1,6 @@
 // Redes sociales del pie de página (content/redes.json, editable desde el panel).
-// Cada botón del pie lleva data-red="<nombre>". Un botón solo se ve si su enlace está cargado;
-// Instagram trae su enlace en el HTML y solo se oculta si el administrador lo vacía en el panel.
+// Cada botón del pie lleva data-red="<nombre>" y empieza oculto: solo se ve cuando su enlace está cargado
+// en el panel (si se vacía, vuelve a ocultarse).
 document.addEventListener("DOMContentLoaded", async () => {
   const botones = document.querySelectorAll(".pie__redes a[data-red]");
   if (!botones.length) return;
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (e) {
     redes = null;
   }
-  if (!redes) return; // sin datos: queda lo que trae el HTML (Instagram visible, el resto oculto)
+  if (!redes) return; // sin datos: todos los botones quedan ocultos
 
   botones.forEach((boton) => {
     const url = String(redes[boton.dataset.red] || "").trim();
