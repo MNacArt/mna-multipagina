@@ -557,7 +557,7 @@ p { margin: 0 0 1em; }
   padding: 32px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .tarjeta--iniciativa .tarjeta__icono { width: 54px; height: 54px; margin-bottom: 0; font-size: 1.5rem; }
 .tarjeta--iniciativa h3 { font-size: 1.4rem; line-height: 1.25; margin: 0; }
@@ -567,6 +567,9 @@ p { margin: 0 0 1em; }
 
 /* Tarjeta de descarga del PDF de propuestas: mismo tamaño, en azul sólido para destacar como llamada a la acción. */
 .tarjeta--descarga { background: var(--azul); border-color: transparent; color: var(--blanco); text-decoration: none; }
+/* Descarga: el texto abajo a la izquierda y la flecha hacia abajo a su derecha. */
+.tarjeta--descarga { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.tarjeta--descarga .tarjeta__icono { flex: 0 0 auto; }
 .tarjeta--descarga h3 { color: var(--blanco); }
 .tarjeta--descarga .tarjeta__icono { background: rgba(255, 255, 255, .16); color: var(--blanco); }
 .tarjeta__etiqueta {
