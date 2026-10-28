@@ -1352,12 +1352,6 @@ p { margin: 0 0 1em; }
 
 /* ---------- Botón y ventana de "Compartir" (assets/js/compartir.js) ---------- */
 .icono-compartir { width: 18px; height: 18px; flex: 0 0 auto; }
-.pie__redes .pie__compartir {
-  width: 38px; height: 38px; border-radius: 50%; padding: 0;
-  border: 1px solid rgba(255,255,255,.3); background: transparent; color: rgba(255,255,255,.78);
-  display: flex; align-items: center; justify-content: center; cursor: pointer;
-}
-.pie__redes .pie__compartir:hover { background: var(--rojo); border-color: var(--rojo); color: var(--blanco); }
 .tarjeta__acciones { margin-top: auto; display: flex; align-items: center; gap: 10px; position: relative; z-index: 1; }
 .tarjeta__acciones .tarjeta__leer { margin-top: 0; }
 .tarjeta__compartir {
