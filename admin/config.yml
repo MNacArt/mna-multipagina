@@ -82,6 +82,18 @@ collections:
               - { label: "Autor", name: autor, widget: string, required: false }
               - { label: "Fecha de publicación", name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
               - { label: "Enlace al ensayo", name: url, widget: string, hint: "Debe empezar con https://" }
+      - name: instagram_principios
+        label: "Instagram: publicaciones de Principios"
+        file: content/instagram.json
+        fields:
+          - label: "Publicaciones de Instagram"
+            label_singular: "publicación"
+            name: items
+            widget: list
+            summary: "{{fields.url}}"
+            hint: "Se muestran en la página Base, Principios y Doctrina, debajo de \"Síguenos en nuestras redes sociales\". Si borras todas, la sección se oculta."
+            fields:
+              - { label: "Enlace de la publicación", name: url, widget: string, hint: "Copia el enlace desde Instagram (Compartir › Copiar enlace). Debe ser de una publicación o reel: https://www.instagram.com/p/... o /reel/..." }
       - name: video
         label: "Video de interés (Noticias)"
         file: content/video.json
@@ -239,6 +251,11 @@ collections:
             widget: text
             required: false
             hint: "También se ve en la página de Inicio."
+          - label: "Redes sociales › Título"
+            name: principios_redes_titulo
+            widget: string
+            required: false
+            hint: "Título de la sección con las publicaciones de Instagram (se editan en Publicaciones › Instagram)."
           - label: "Llamado a participar › Título"
             name: principios_cta_titulo
             widget: string
