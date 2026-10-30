@@ -21,6 +21,18 @@
     const clave = el.dataset.contenido.replace(/\./g, "_");
     if (!(clave in valores)) return;
     const valor = String(valores[clave]);
+    if (el.dataset.tipo === "archivo") {
+      // Archivo para descargar (PDF, imagen...): con archivo se ve el botón; sin archivo queda como estaba.
+      if (valor) {
+        const ruta = valor.replace(/^\//, "");
+        el.href = ruta;
+        let nombre = ruta.split("?")[0].split("/").pop();
+        try { nombre = decodeURIComponent(nombre); } catch (e) { /* se deja el nombre tal cual */ }
+        el.setAttribute("download", nombre);
+        el.hidden = false;
+      }
+      return;
+    }
     if (el.dataset.tipo === "imagen") {
       if (valor) el.src = valor.replace(/^\//, "");
     } else {

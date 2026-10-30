@@ -1412,3 +1412,15 @@ p { margin: 0 0 1em; }
 @media (prefers-reduced-motion: reduce) {
   .compartir[open], .compartir[open]::backdrop { animation: none; }
 }
+
+/* Botón "Descargar PDF" de cada tarjeta de iniciativa: solo aparece si el administrador subió un archivo. */
+.tarjeta__pdf {
+  align-self: flex-start; margin-top: 14px; position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.45);
+  color: var(--blanco); font-weight: 700; font-size: .85rem; text-decoration: none;
+  transition: background .2s ease, border-color .2s ease;
+}
+.tarjeta__pdf[hidden] { display: none; }
+.tarjeta__pdf svg { width: 16px; height: 16px; flex: 0 0 auto; }
+.tarjeta__pdf:hover { background: var(--rojo); border-color: var(--rojo); }

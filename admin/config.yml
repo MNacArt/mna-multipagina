@@ -292,26 +292,56 @@ collections:
             name: propuestas_otras_item1
             widget: string
             required: false
+          - label: "Otras iniciativas › Iniciativa 1 › Documento PDF"
+            name: propuestas_otras_item1_pdf
+            widget: file
+            required: false
+            hint: "Opcional. Si subes un PDF, la tarjeta muestra un botón Descargar PDF. Para quitarlo, borra el archivo."
           - label: "Otras iniciativas › Iniciativa 2"
             name: propuestas_otras_item2
             widget: string
             required: false
+          - label: "Otras iniciativas › Iniciativa 2 › Documento PDF"
+            name: propuestas_otras_item2_pdf
+            widget: file
+            required: false
+            hint: "Opcional. Si subes un PDF, la tarjeta muestra un botón Descargar PDF. Para quitarlo, borra el archivo."
           - label: "Otras iniciativas › Iniciativa 3"
             name: propuestas_otras_item3
             widget: string
             required: false
+          - label: "Otras iniciativas › Iniciativa 3 › Documento PDF"
+            name: propuestas_otras_item3_pdf
+            widget: file
+            required: false
+            hint: "Opcional. Si subes un PDF, la tarjeta muestra un botón Descargar PDF. Para quitarlo, borra el archivo."
           - label: "Otras iniciativas › Iniciativa 4"
             name: propuestas_otras_item4
             widget: string
             required: false
+          - label: "Otras iniciativas › Iniciativa 4 › Documento PDF"
+            name: propuestas_otras_item4_pdf
+            widget: file
+            required: false
+            hint: "Opcional. Si subes un PDF, la tarjeta muestra un botón Descargar PDF. Para quitarlo, borra el archivo."
           - label: "Otras iniciativas › Iniciativa 5"
             name: propuestas_otras_item5
             widget: string
             required: false
+          - label: "Otras iniciativas › Iniciativa 5 › Documento PDF"
+            name: propuestas_otras_item5_pdf
+            widget: file
+            required: false
+            hint: "Opcional. Si subes un PDF, la tarjeta muestra un botón Descargar PDF. Para quitarlo, borra el archivo."
           - label: "Tarjeta de descarga del PDF › Título"
             name: propuestas_descarga_titulo
             widget: string
             required: false
+          - label: "Tarjeta de descarga › Archivo para descargar"
+            name: propuestas_descarga_archivo
+            widget: file
+            required: false
+            hint: "El documento que se baja al tocar esa tarjeta (PDF u otro archivo). Si lo cambias, la etiqueta de la tarjeta muestra su tipo automáticamente."
           - label: "Novedades › Título"
             name: propuestas_novedades_titulo
             widget: string

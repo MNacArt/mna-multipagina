@@ -192,20 +192,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Enlaces a PDF que todavía pueden no estar subidos: si el archivo no existe se muestra
   // "Próximamente" en lugar de llevar a un error 404.
-  document.querySelectorAll("a[data-pdf]").forEach((enlace) => {
+  // Tarjeta de descarga: si el archivo existe se ve su tipo (PDF, PNG...); si no, avisa "Próximamente".
+  // Se vuelve a revisar cuando el panel cambia el archivo (evento "contenido-aplicado" de contenido.js).
+  const verificarDescarga = (enlace) => {
     const etiqueta = enlace.querySelector(".tarjeta__etiqueta");
+    const ruta = enlace.getAttribute("href");
+    fetch(ruta, { method: "HEAD" })
+      .then((respuesta) => {
+        if (respuesta.ok) {
+          enlace.classList.remove("tarjeta--pronto");
+          const extension = (ruta.split("?")[0].split(".").pop() || "").toUpperCase();
+          if (etiqueta) etiqueta.textContent = extension && extension.length <= 4 ? extension : "Archivo";
+          return;
+        }
+        enlace.classList.add("tarjeta--pronto");
+        if (etiqueta) etiqueta.textContent = "Próximamente";
+      })
+      .catch(() => {});
+  };
+  document.querySelectorAll("a[data-pdf]").forEach((enlace) => {
     enlace.addEventListener("click", (evento) => {
       if (enlace.classList.contains("tarjeta--pronto")) {
         evento.preventDefault();
       }
     });
-    fetch(enlace.getAttribute("href"), { method: "HEAD" })
-      .then((respuesta) => {
-        if (respuesta.ok) return;
-        enlace.classList.add("tarjeta--pronto");
-        if (etiqueta) etiqueta.textContent = "Próximamente";
-      })
-      .catch(() => {});
+    verificarDescarga(enlace);
+    document.addEventListener("contenido-aplicado", () => verificarDescarga(enlace), { once: true });
   });
 
 });
