@@ -1424,3 +1424,9 @@ p { margin: 0 0 1em; }
 .tarjeta__pdf[hidden] { display: none; }
 .tarjeta__pdf svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .tarjeta__pdf:hover { background: var(--rojo); border-color: var(--rojo); }
+
+/* "Video de interés" (Noticias): hasta 5 videos de YouTube; con uno solo, centrado y más angosto. */
+.videos-interes { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.videos-interes--uno { grid-template-columns: minmax(0, 760px); justify-content: center; }
+.video-interes { margin: 0; }
+.video-interes figcaption { margin-top: 4px; text-align: center; font-weight: 600; color: var(--azul); font-size: .95rem; }

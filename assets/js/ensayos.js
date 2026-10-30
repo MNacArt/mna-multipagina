@@ -1,5 +1,5 @@
 // Noticias: "Ensayos de interés" y "Video de interés" se cargan desde el panel de administración
-// (content/ensayos.json y content/video.json). Lo escrito en noticias.html queda como respaldo:
+// (content/ensayos.json y content/video.json: hasta 5 videos). Lo escrito en noticias.html queda como respaldo:
 // solo se reemplaza si los archivos cargan.
 document.addEventListener("DOMContentLoaded", () => {
   async function cargarEnsayos() {
@@ -29,20 +29,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
+  // Hasta 5 videos de YouTube (content/video.json). También acepta el formato anterior { "url": "..." }.
   async function cargarVideo() {
     const seccion = document.querySelector("#seccion-video-interes");
-    const marco = document.querySelector("#video-interes");
-    if (!seccion || !marco) return;
+    const lista = document.querySelector("#videos-interes");
+    if (!seccion || !lista) return;
     const datos = await MNA_DATOS.leer("content/video.json");
     if (!datos) return;
 
-    const url = String(datos.url || "").trim();
-    if (!url) {
+    const crudos = Array.isArray(datos.items) ? datos.items : (datos.url ? [{ url: datos.url }] : []);
+    const videos = crudos
+      .map((v) => ({ embed: MNA_DATOS.embedYoutube(String((v && v.url) || "").trim()), titulo: String((v && v.titulo) || "").trim() }))
+      .filter((v) => v.embed)
+      .slice(0, 5);
+
+    if (!videos.length) {
       seccion.style.display = "none";
       return;
     }
-    const embed = MNA_DATOS.embedYoutube(url);
-    if (embed) marco.src = embed;
+    lista.classList.toggle("videos-interes--uno", videos.length === 1);
+    lista.innerHTML = videos.map((v, i) => `
+      <figure class="video-interes">
+        <div class="video-incrustado" style="box-shadow:var(--sombra);">
+          <iframe src="${v.embed}" title="${MNA_DATOS.escapar(v.titulo || "Video de interés " + (i + 1))}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        ${v.titulo ? `<figcaption>${MNA_DATOS.escapar(v.titulo)}</figcaption>` : ""}
+      </figure>`).join("");
   }
 
   cargarEnsayos();

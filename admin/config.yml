@@ -95,10 +95,19 @@ collections:
             fields:
               - { label: "Enlace de la publicación", name: url, widget: string, hint: "Copia el enlace desde Instagram (Compartir › Copiar enlace). Debe ser de una publicación o reel: https://www.instagram.com/p/... o /reel/..." }
       - name: video
-        label: "Video de interés (Noticias)"
+        label: "Videos de YouTube (Noticias)"
         file: content/video.json
         fields:
-          - { label: "Enlace de YouTube", name: url, widget: string, required: false, hint: "Cualquier enlace de YouTube (normal, en vivo, corto o youtu.be). Déjalo vacío para quitar la sección de la página." }
+          - label: "Videos de YouTube"
+            label_singular: "video"
+            name: items
+            widget: list
+            max: 5
+            summary: "{{fields.titulo}} {{fields.url}}"
+            hint: "Hasta 5 videos. Se muestran en Noticias, en la sección Video de interés. Si borras todos, la sección se oculta."
+            fields:
+              - { label: "Enlace de YouTube", name: url, widget: string, hint: "Cualquier enlace de YouTube: normal, en vivo, corto o youtu.be. Ejemplo: https://www.youtube.com/watch?v=XXXXXXXXXXX" }
+              - { label: "Título (opcional)", name: titulo, widget: string, required: false, hint: "Se muestra debajo del video." }
 
   - name: textos
     label: "Textos e imágenes de las páginas"
