@@ -659,11 +659,14 @@ p { margin: 0 0 1em; }
 .pie {
   background: var(--azul-oscuro);
   color: rgba(255,255,255,.88);
-  padding: 56px 24px 24px;
+  padding: 72px 24px 28px;
   position: relative; z-index: 0; overflow: hidden;
 }
 /* Video de fondo del footer (banderas de Uruguay y del movimiento ondeando); la capa lo oscurece para que el texto se lea. */
-.pie .seccion__video-capa { background: rgba(4,12,32,.72); }
+.pie .seccion__video-capa { background: rgba(4,12,32,.6); }
+/* Arriba del video queda el Sol de Mayo; en pantallas angostas se corre a la izquierda para que tampoco salga cortado. */
+.pie .seccion__video-fondo { object-position: 50% 0; }
+.pie h2, .pie p, .pie strong, .pie a, .pie span { text-shadow: 0 1px 6px rgba(2,8,24,.85); }
 .pie::before { z-index: 1; }
 .pie::before {
   content: "";
@@ -677,23 +680,24 @@ p { margin: 0 0 1em; }
   padding-bottom: 36px;
   border-bottom: 1px solid rgba(255,255,255,.15);
 }
-.pie__marca { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
-.pie__marca img { width: 46px; height: 46px; object-fit: contain; }
-.pie__marca strong { display: block; font-family: var(--fuente-titulo); color: var(--blanco); font-size: 1.05rem; }
-.pie p { color: rgba(255,255,255,.7); font-size: .92rem; }
-.pie h4, .pie h2 { color: var(--blanco); font-family: var(--fuente-texto); font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; }
+.pie__marca { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
+.pie__marca img { width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(2,8,24,.7)); }
+.pie__marca strong { display: block; font-family: var(--fuente-titulo); color: var(--blanco); font-size: 1.55rem; line-height: 1.2; }
+.pie p { color: rgba(255,255,255,.92); font-size: 1.08rem; line-height: 1.6; }
+.pie h4, .pie h2 { color: var(--blanco); font-family: var(--fuente-texto); font-size: 1rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
 .pie ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.pie a { color: rgba(255,255,255,.78); font-size: .95rem; }
+.pie a { color: rgba(255,255,255,.92); font-size: 1.05rem; }
 .pie a:hover { color: var(--blanco); }
-.pie__redes { display: flex; gap: 12px; margin-top: 8px; }
+.pie__redes { display: flex; gap: 14px; margin-top: 10px; }
 .pie__redes a {
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.3);
+  width: 50px; height: 50px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.55);
+  background: rgba(4,12,32,.35);
   display: flex; align-items: center; justify-content: center;
 }
 .pie__redes a[hidden] { display: none; }
 .pie__redes a:hover { background: var(--rojo); border-color: var(--rojo); }
-.pie__icono { width: 18px; height: 18px; display: block; }
+.pie__icono { width: 24px; height: 24px; display: block; }
 .pie__subtitulo { margin-top: 44px; }
 .pie__redes a { position: relative; }
 .pie__redes a.copiado::after {
@@ -712,7 +716,7 @@ p { margin: 0 0 1em; }
 }
 .pie__inferior {
   display: flex; justify-content: space-between; align-items: center;
-  padding-top: 22px; font-size: .82rem; color: rgba(255,255,255,.6);
+  padding-top: 22px; font-size: 1rem; color: rgba(255,255,255,.88);
   flex-wrap: wrap; gap: 10px;
 }
 .pie__lema { font-family: var(--fuente-titulo); color: var(--blanco); text-align: center; margin: 0 0 22px; font-size: 1rem; }
@@ -1350,6 +1354,8 @@ p { margin: 0 0 1em; }
   .campo-fila { grid-template-columns: 1fr; }
   .eje-propuesta { grid-template-columns: 56px 1fr; }
   .pie__grid { grid-template-columns: 1fr; }
+  .pie .seccion__video-fondo { object-position: 10% 0; }
+  .pie__marca strong { font-size: 1.3rem; }
   .pie__inferior { flex-direction: column; align-items: flex-start; }
   .mensaje-burbuja { max-width: 88%; }
   .cabecera-sesion { flex-direction: column; align-items: flex-start; }
