@@ -77,7 +77,7 @@ function pagina(cat, a, url) {
   const titulo = String(a.titulo || "Publicación");
   const descripcion = resumen(a.texto) || "Publicación del Movimiento Nacional Artiguista.";
   const iso = fechaIso(a.fecha);
-  const imagen = a.imagen ? absoluta(a.imagen) : `${SITIO}/assets/img/og-imagen.jpg`;
+  const imagen = a.imagen ? absoluta(a.imagen) : `${SITIO}/assets/img/og-mna-bandera.jpg`;
   const tituloPagina = `${titulo} — Movimiento Nacional Artiguista de Uruguay`;
 
   const ld = {
