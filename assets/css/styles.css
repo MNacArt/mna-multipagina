@@ -660,8 +660,11 @@ p { margin: 0 0 1em; }
   background: var(--azul-oscuro);
   color: rgba(255,255,255,.88);
   padding: 56px 24px 24px;
-  position: relative;
+  position: relative; z-index: 0; overflow: hidden;
 }
+/* Video de fondo del footer (banderas de Uruguay y del movimiento ondeando); la capa lo oscurece para que el texto se lea. */
+.pie .seccion__video-capa { background: rgba(4,12,32,.72); }
+.pie::before { z-index: 1; }
 .pie::before {
   content: "";
   position: absolute; top: 0; left: 0; right: 0; height: 4px;
